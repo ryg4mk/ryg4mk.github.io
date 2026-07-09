@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>スマホ動画整理くん Privacy Policy</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.8;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      color: #222;
+      background: #fafafa;
+    }
+    h1, h2 {
+      color: #1f4f8b;
+    }
+    h1 {
+      border-bottom: 2px solid #1f4f8b;
+      padding-bottom: 8px;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    .lang-link {
+      margin: 16px 0 32px;
+      padding: 12px;
+      background: #eef5ff;
+      border-radius: 8px;
+    }
+    .updated {
+      color: #666;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>スマホ動画整理くん プライバシーポリシー</h1>
+
+  <div class="lang-link">
+    <a href="#english">English Privacy Policy</a>
+  </div>
+
+  <p class="updated">制定日：2026年7月9日</p>
+
+  <section>
+    <p>
+      スマホ動画整理くん（以下「本アプリ」）は、端末内の動画を古い順に確認し、
+      YouTubeアプリへの共有や端末のゴミ箱への移動を補助するアプリです。
+    </p>
+  </section>
+
+  <section>
+    <h2>1. 取得・利用する情報</h2>
+    <p>
+      本アプリは、端末内の動画を表示するために、動画ファイルへのアクセス権限を使用します。
+    </p>
+    <p>本アプリが端末内で利用する情報は以下の通りです。</p>
+    <ul>
+      <li>端末内の動画ファイル</li>
+      <li>動画のファイル名</li>
+      <li>動画の撮影日または更新日</li>
+      <li>動画の容量</li>
+      <li>動画の長さ</li>
+      <li>動画ごとの整理状態（未確認、スキップ済み、アップロード済み、削除済み）</li>
+      <li>アプリ内の言語設定</li>
+      <li>チュートリアル表示済み状態</li>
+    </ul>
+    <p>
+      これらの情報は、本アプリの機能を提供するために端末内で使用されます。
+    </p>
+  </section>
+
+  <section>
+    <h2>2. 動画ファイルの取り扱い</h2>
+    <p>
+      本アプリは、端末内の動画を一覧表示し、再生・整理するために動画へアクセスします。
+    </p>
+    <p>
+      本アプリは、開発者のサーバーへ動画ファイルを送信しません。<br />
+      本アプリは、動画ファイルを自動的に外部へアップロードしません。
+    </p>
+    <p>
+      ユーザーが「YouTubeアプリでアップロード」を選択した場合のみ、ユーザー操作により、
+      選択中の動画をYouTubeアプリまたは動画共有に対応したアプリへ共有します。
+    </p>
+    <p>
+      YouTubeアプリでのアップロード、公開設定、投稿内容の管理は、
+      YouTubeアプリおよびユーザーの操作によって行われます。
+    </p>
+  </section>
+
+  <section>
+    <h2>3. ゴミ箱への移動</h2>
+    <p>
+      本アプリは、ユーザーが選択した動画を端末のゴミ箱へ移動する機能を提供します。
+    </p>
+    <p>
+      動画をゴミ箱へ移動する前には、必ず確認画面を表示します。<br />
+      ユーザーの許可なく、動画を自動的に削除またはゴミ箱へ移動することはありません。
+    </p>
+  </section>
+
+  <section>
+    <h2>4. 収集・共有する情報</h2>
+    <p>
+      本アプリは、動画ファイル、個人情報、利用履歴を開発者のサーバーへ送信しません。<br />
+      本アプリは、ユーザーの個人情報を第三者へ販売または共有しません。
+    </p>
+    <p>
+      ただし、ユーザーがYouTubeアプリや他の共有先アプリを選択した場合、
+      共有先アプリの取り扱いは各サービスのプライバシーポリシーに従います。
+    </p>
+  </section>
+
+  <section>
+    <h2>5. 保存される情報</h2>
+    <p>本アプリは、以下の情報を端末内に保存します。</p>
+    <ul>
+      <li>動画ごとの整理状態</li>
+      <li>言語設定</li>
+      <li>チュートリアル表示済み状態</li>
+    </ul>
+    <p>
+      これらの情報は、本アプリの機能を提供するために端末内に保存されます。<br />
+      アプリをアンインストールすると、通常これらの情報は削除されます。
+    </p>
+  </section>
+
+  <section>
+    <h2>6. 広告について</h2>
+    <p>
+      現在、本アプリには広告は含まれていません。
+    </p>
+    <p>
+      将来、広告を追加する場合は、本プライバシーポリシーおよびGoogle Playのデータセーフティ情報を更新します。
+    </p>
+  </section>
+
+  <section>
+    <h2>7. アカウントについて</h2>
+    <p>
+      本アプリは、独自のアカウント作成機能を提供していません。<br />
+      本アプリは、YouTubeアカウントへのログイン情報を取得または保存しません。
+    </p>
+  </section>
+
+  <section>
+    <h2>8. お問い合わせ</h2>
+    <p>
+      本プライバシーポリシーに関するお問い合わせは、以下のメールアドレスまでご連絡ください。
+    </p>
+    <p>
+      メールアドレス：<br />
+      <a href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>9. 改定</h2>
+    <p>
+      本プライバシーポリシーは、必要に応じて変更されることがあります。<br />
+      重要な変更がある場合は、アプリ内または配布ページ上でお知らせします。
+    </p>
+  </section>
+
+  <hr />
+
+  <h1 id="english">Privacy Policy for Phone Video Organizer</h1>
+
+  <p class="updated">Effective date: Month Day, 2026</p>
+
+  <section>
+    <p>
+      Phone Video Organizer (the “App”) is an app that helps users review videos stored on their device,
+      share selected videos to the YouTube app, and optionally move videos to the device trash.
+    </p>
+  </section>
+
+  <section>
+    <h2>1. Information Used by the App</h2>
+    <p>
+      The App uses permission to access video files on your device in order to display and organize your videos.
+    </p>
+    <p>The App may use the following information on your device:</p>
+    <ul>
+      <li>Video files stored on your device</li>
+      <li>Video file names</li>
+      <li>Video creation date or modified date</li>
+      <li>Video file size</li>
+      <li>Video duration</li>
+      <li>Video status in the App, such as pending, skipped, uploaded, or deleted</li>
+      <li>App language setting</li>
+      <li>Tutorial completion status</li>
+    </ul>
+    <p>
+      This information is used only to provide the App’s features on your device.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Handling of Video Files</h2>
+    <p>
+      The App accesses videos on your device so that you can view, play, and organize them.
+    </p>
+    <p>
+      The App does not send your video files to the developer’s server.<br />
+      The App does not automatically upload your videos to any external service.
+    </p>
+    <p>
+      Only when you choose “Upload with YouTube app,” the selected video is shared to the YouTube app
+      or another app that supports video sharing, based on your action.
+    </p>
+    <p>
+      Uploading, visibility settings, and content management in YouTube are handled by the YouTube app
+      and your own actions.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. Moving Videos to Trash</h2>
+    <p>
+      The App provides a feature to move selected videos to the device trash.
+    </p>
+    <p>
+      Before moving a video to trash, the App always shows a confirmation screen.<br />
+      The App does not delete or move videos to trash without your permission.
+    </p>
+  </section>
+
+  <section>
+    <h2>4. Collection and Sharing of Data</h2>
+    <p>
+      The App does not send video files, personal information, or usage history to the developer’s server.<br />
+      The App does not sell or share your personal information with third parties.
+    </p>
+    <p>
+      If you choose to share a video with YouTube or another app, the handling of that video is governed
+      by the privacy policy of the selected service or app.
+    </p>
+  </section>
+
+  <section>
+    <h2>5. Locally Stored Information</h2>
+    <p>The App stores the following information locally on your device:</p>
+    <ul>
+      <li>Video organization status</li>
+      <li>Language setting</li>
+      <li>Tutorial completion status</li>
+    </ul>
+    <p>
+      This information is stored on your device to provide the App’s features.<br />
+      When you uninstall the App, this information is usually deleted.
+    </p>
+  </section>
+
+  <section>
+    <h2>6. Advertising</h2>
+    <p>
+      The current version of the App does not contain ads.
+    </p>
+    <p>
+      If ads are added in the future, this Privacy Policy and the Google Play Data safety information
+      will be updated accordingly.
+    </p>
+  </section>
+
+  <section>
+    <h2>7. Accounts</h2>
+    <p>
+      The App does not provide its own account creation feature.<br />
+      The App does not collect or store your YouTube account login information.
+    </p>
+  </section>
+
+  <section>
+    <h2>8. Contact</h2>
+    <p>
+      If you have any questions about this Privacy Policy, please contact us at:
+    </p>
+    <p>
+      Email:<br />
+      <a href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Changes to This Privacy Policy</h2>
+    <p>
+      This Privacy Policy may be updated from time to time.<br />
+      If important changes are made, we will notify users in the App or on the distribution page.
+    </p>
+  </section>
+
+</body>
+</html>
