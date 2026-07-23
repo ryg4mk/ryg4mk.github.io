@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ずんだもんピアノのプライバシーポリシー">
+  <title>プライバシーポリシー｜ずんだもんピアノ</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans JP",
+        Meiryo,
+        Arial,
+        sans-serif;
+      background: #f7fff2;
+      color: #243125;
+      line-height: 1.8;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 32px auto;
+      padding: 32px;
+      background: #ffffff;
+      border: 1px solid #cfe9c4;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(51, 97, 37, 0.08);
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #3a8f2f;
+    }
+
+    h2 {
+      margin-top: 2em;
+      color: #3f7f36;
+      border-left: 5px solid #62b947;
+      padding-left: 12px;
+    }
+
+    .meta,
+    footer {
+      color: #5f6f61;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: #2f7b28;
+    }
+
+    footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid #cfe9c4;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        width: calc(100% - 20px);
+        margin: 10px auto;
+        padding: 22px 18px;
+        border-radius: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>プライバシーポリシー</h1>
+
+    <p class="meta">
+      対象アプリ：ずんだもんピアノ
+    </p>
+
+    <p>
+      BananaKumaGames（以下「当方」といいます）は、スマートフォン向けアプリ
+      「ずんだもんピアノ」（以下「本アプリ」といいます）における利用者情報の
+      取り扱いについて、以下のとおりプライバシーポリシーを定めます。
+    </p>
+
+    <h2>1. 収集する情報</h2>
+
+    <p>
+      本アプリは、氏名、メールアドレス、位置情報、連絡先、写真、音声、
+      端末識別情報その他の個人情報または利用者情報を収集しません。
+    </p>
+
+    <p>
+      本アプリには、アカウント登録機能、広告配信機能、アクセス解析機能はありません。
+    </p>
+
+    <h2>2. 情報の利用目的</h2>
+
+    <p>
+      本アプリは利用者情報を収集しないため、利用者情報の保存、分析、広告配信、
+      マーケティングその他の目的で利用することはありません。
+    </p>
+
+    <h2>3. 第三者への提供</h2>
+
+    <p>
+      本アプリは利用者情報を収集しないため、第三者への提供または共有を行いません。
+    </p>
+
+    <h2>4. 外部サービスおよびSDK</h2>
+
+    <p>
+      本アプリは、広告配信サービス、アクセス解析サービス、ソーシャルログインその他の
+      利用者情報を外部へ送信するサービスを使用していません。
+    </p>
+
+    <p>
+      本アプリで使用している音声はVOICEVOXを使用して制作しています。
+    </p>
+
+    <p>
+      <strong>クレジット：VOICEVOX:ずんだもん</strong>
+    </p>
+
+    <h2>5. 子どものプライバシー</h2>
+
+    <p>
+      本アプリは、子どもを含むすべての利用者から個人情報を収集しません。
+    </p>
+
+    <p>
+      本アプリには、広告、課金、チャット、アカウント登録、
+      外部サイトへの誘導機能はありません。
+    </p>
+
+    <h2>6. インターネット通信</h2>
+
+    <p>
+      本アプリは、基本的なピアノ演奏機能の利用において
+      インターネット通信を必要としません。
+    </p>
+
+    <h2>7. 権限</h2>
+
+    <p>
+      本アプリは、カメラ、マイク、位置情報、連絡先、
+      ストレージなどの端末権限を要求しません。
+    </p>
+
+    <h2>8. プライバシーポリシーの変更</h2>
+
+    <p>
+      本ポリシーの内容は、法令の変更、本アプリの機能追加または
+      運営方針の変更などに応じて改定する場合があります。
+      重要な変更を行った場合は、本ページ上で告知します。
+    </p>
+
+    <h2>9. お問い合わせ</h2>
+
+    <p>
+      本アプリおよび本ポリシーに関するお問い合わせは、
+      以下までご連絡ください。
+    </p>
+
+    <p>
+      運営者：BananaKumaGames<br>
+      メールアドレス：
+      <a href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a>
+    </p>
+
+    <footer>
+      制定日：2026年7月23日
+    </footer>
+  </main>
+</body>
+</html>
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Privacy Policy for Zundamon Piano">
+  <title>Privacy Policy | Zundamon Piano</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+      background: #f7fff2;
+      color: #243125;
+      line-height: 1.8;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 32px auto;
+      padding: 32px;
+      background: #ffffff;
+      border: 1px solid #cfe9c4;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(51, 97, 37, 0.08);
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #3a8f2f;
+    }
+
+    h2 {
+      margin-top: 2em;
+      color: #3f7f36;
+      border-left: 5px solid #62b947;
+      padding-left: 12px;
+    }
+
+    .meta,
+    footer {
+      color: #5f6f61;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: #2f7b28;
+    }
+
+    footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid #cfe9c4;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        width: calc(100% - 20px);
+        margin: 10px auto;
+        padding: 22px 18px;
+        border-radius: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Privacy Policy</h1>
+
+    <p class="meta">
+      App: Zundamon Piano
+    </p>
+
+    <p>
+      BananaKumaGames (“we,” “us,” or “our”) establishes this Privacy Policy
+      regarding the handling of user information in the mobile application
+      “Zundamon Piano” (the “App”).
+    </p>
+
+    <h2>1. Information We Collect</h2>
+
+    <p>
+      The App does not collect names, email addresses, location data, contacts,
+      photos, audio recordings, device identifiers, or any other personal or
+      user information.
+    </p>
+
+    <p>
+      The App does not include account registration, advertising, or analytics features.
+    </p>
+
+    <h2>2. How We Use Information</h2>
+
+    <p>
+      Because the App does not collect user information, we do not store,
+      analyze, use for advertising, use for marketing, or otherwise process
+      user information.
+    </p>
+
+    <h2>3. Sharing with Third Parties</h2>
+
+    <p>
+      Because the App does not collect user information, we do not provide or
+      share user information with third parties.
+    </p>
+
+    <h2>4. External Services and SDKs</h2>
+
+    <p>
+      The App does not use advertising services, analytics services,
+      social login services, or other services that transmit user information externally.
+    </p>
+
+    <p>
+      Audio used in the App was created using VOICEVOX.
+    </p>
+
+    <p>
+      <strong>Credit: VOICEVOX: Zundamon</strong>
+    </p>
+
+    <h2>5. Children’s Privacy</h2>
+
+    <p>
+      The App does not collect personal information from any user, including children.
+    </p>
+
+    <p>
+      The App does not include advertisements, in-app purchases, chat,
+      account registration, or links that direct users to external websites.
+    </p>
+
+    <h2>6. Internet Connection</h2>
+
+    <p>
+      The App does not require an internet connection for its basic
+      piano-playing features.
+    </p>
+
+    <h2>7. Device Permissions</h2>
+
+    <p>
+      The App does not request device permissions such as camera, microphone,
+      location, contacts, or storage access.
+    </p>
+
+    <h2>8. Changes to This Privacy Policy</h2>
+
+    <p>
+      We may revise this Privacy Policy in response to changes in laws,
+      new App features, or changes in our operating practices.
+      Important changes will be announced on this page.
+    </p>
+
+    <h2>9. Contact Us</h2>
+
+    <p>
+      For questions about the App or this Privacy Policy, please contact:
+    </p>
+
+    <p>
+      Operator: BananaKumaGames<br>
+      Email:
+      <a href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a>
+    </p>
+
+    <footer>
+      Effective date: July 23, 2026
+    </footer>
+  </main>
+</body>
+</html>
