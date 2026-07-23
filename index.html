@@ -1,10 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <title>My App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BananaKumaGames公式サイト。ずんだもんピアノ、ギャオギャオバトル、動画お片づけを公開しています。">
+  <meta name="theme-color" content="#ffcf4a">
+  <title>BananaKumaGames | Official Website</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>My App Support Page</h1>
-  <p>This is a support page.</p>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="BananaKumaGames トップへ">
+        <span class="brand-mark" aria-hidden="true">🍌</span>
+        <span>BananaKumaGames</span>
+      </a>
+      <nav aria-label="メインナビゲーション">
+        <a href="#apps">Apps</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow">WELCOME TO OUR PLAYGROUND!</p>
+        <h1 id="hero-title">BananaKumaGames</h1>
+        <p class="hero-copy">
+          毎日がちょっと楽しくなる、かわいくて遊び心のあるアプリを作っています。
+          <span lang="en">We make cute, playful apps that add a little fun to every day.</span>
+        </p>
+        <a class="primary-button" href="#apps">アプリを見る <span lang="en">/ View Apps</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="sun">☀</span>
+        <span class="banana">🍌</span>
+        <span class="bear">🐻</span>
+        <span class="sparkle sparkle-one">✦</span>
+        <span class="sparkle sparkle-two">✦</span>
+      </div>
+    </section>
+
+    <section class="apps-section" id="apps" aria-labelledby="apps-title">
+      <div class="section-heading">
+        <p class="eyebrow">OUR APPS</p>
+        <h2 id="apps-title">公開中のアプリ <span lang="en">/ Our Apps</span></h2>
+        <p>気になるアプリを見つけて、ぜひ遊んでみてください。</p>
+        <p lang="en">Find your favorite and have fun!</p>
+      </div>
+
+      <div class="app-grid">
+        <article class="app-card">
+          <div class="app-visual piano-visual" role="img" aria-label="ずんだもんとカラフルなピアノをイメージしたイラスト">
+            <span class="visual-character">♪</span>
+            <span class="piano-keys" aria-hidden="true"></span>
+          </div>
+          <div class="app-content">
+            <p class="app-number">APP 01</p>
+            <h3>ずんだもんピアノ</h3>
+            <p>ずんだもんと一緒に、楽しく音を鳴らして遊べるピアノアプリです。</p>
+            <p lang="en">A cheerful piano app where you can play sounds together with Zundamon.</p>
+            <div class="app-links">
+              <!-- Google Play URLが判明したら、ここにGoogle Playへのa要素を追加してください。 -->
+              <span class="store-status">Google Play: 準備中 / Coming soon</span>
+              <a class="policy-link" href="privacy/zundamonpiano.html">プライバシーポリシー <span lang="en">/ Privacy Policy</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card">
+          <div class="app-visual battle-visual" role="img" aria-label="恐竜たちの楽しいバトルをイメージしたイラスト">
+            <span class="dino dino-left">🦖</span>
+            <span class="battle-burst" aria-hidden="true">VS</span>
+            <span class="dino dino-right">🦕</span>
+          </div>
+          <div class="app-content">
+            <p class="app-number">APP 02</p>
+            <h3>ギャオギャオバトル</h3>
+            <p>かわいい恐竜たちが大活躍。わくわくのバトルを楽しめるゲームです。</p>
+            <p lang="en">A fun-filled battle game starring a lively cast of adorable dinosaurs.</p>
+            <div class="app-links">
+              <!-- Google Play URLが判明したら、ここにGoogle Playへのa要素を追加してください。 -->
+              <span class="store-status">Google Play: 準備中 / Coming soon</span>
+              <a class="policy-link" href="privacy/gyaogyaobattle.html">プライバシーポリシー <span lang="en">/ Privacy Policy</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card">
+          <div class="app-visual organizer-visual" role="img" aria-label="スマートフォンの動画を整理する様子をイメージしたイラスト">
+            <span class="phone" aria-hidden="true"><span>▶</span></span>
+            <span class="organizer-arrow" aria-hidden="true">➜</span>
+            <span class="organizer-box" aria-hidden="true">✓</span>
+          </div>
+          <div class="app-content">
+            <p class="app-number">APP 03</p>
+            <h3>動画お片づけ</h3>
+            <p>スマートフォンの動画を見やすく整理して、すっきり管理するためのアプリです。</p>
+            <p lang="en">A simple app that helps you organize and manage videos on your phone.</p>
+            <div class="app-links">
+              <!-- Google Play URLが判明したら、ここにGoogle Playへのa要素を追加してください。 -->
+              <span class="store-status">Google Play: 準備中 / Coming soon</span>
+              <a class="policy-link" href="privacy/phonevideoorganizer.html">プライバシーポリシー <span lang="en">/ Privacy Policy</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="contact-card">
+        <span class="contact-icon" aria-hidden="true">✉</span>
+        <div>
+          <p class="eyebrow">CONTACT</p>
+          <h2 id="contact-title">お問い合わせ <span lang="en">/ Contact</span></h2>
+          <p>アプリに関するご質問・ご連絡はこちらからお願いいたします。</p>
+          <p lang="en">For questions about our apps, please contact us by email.</p>
+          <a class="email-link" href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 BananaKumaGames</p>
+    <p lang="en">Thanks for visiting!</p>
+  </footer>
 </body>
 </html>
