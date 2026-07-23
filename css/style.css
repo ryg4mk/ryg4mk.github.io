@@ -19,10 +19,14 @@
 
 html {
   scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
   color: var(--ink);
   background: var(--cream);
   font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", "Meiryo", system-ui, sans-serif;
@@ -166,14 +170,17 @@ h1 {
 }
 
 .apps-section {
-  padding: 90px max(20px, calc((100% - 1120px) / 2));
+  width: 100%;
+  max-width: none;
+  padding: 90px 20px;
   background: var(--white);
   border-block: 2px solid #f5e7c7;
 }
 
 .section-heading {
+  width: min(100%, 1120px);
   max-width: 690px;
-  margin-bottom: 42px;
+  margin: 0 auto 42px;
 }
 
 h2 {
@@ -189,15 +196,21 @@ h2 {
 
 .app-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
+  width: min(100%, 1120px);
+  max-width: 1120px;
+  margin: 0 auto;
 }
 
 .app-card {
   display: grid;
   overflow: hidden;
   grid-template-columns: 220px minmax(0, 1fr);
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
+  margin: 0 auto;
   background: var(--cream);
   border: 2px solid var(--ink);
   border-radius: 28px;
@@ -410,6 +423,32 @@ footer p {
   }
 }
 
+@media (max-width: 768px) {
+  .apps-section {
+    width: 100%;
+    padding: 72px 20px;
+  }
+
+  .app-grid {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .app-card {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .app-icon-wrap {
+    min-width: 0;
+    border-right: 0;
+    border-bottom: 2px solid var(--ink);
+  }
+}
+
 @media (max-width: 620px) {
   .header-inner {
     width: min(100% - 24px, 1120px);
@@ -446,9 +485,8 @@ footer p {
     box-shadow: 6px 6px 0 #f3b932;
   }
 
-  .app-card {
-    display: grid;
-    grid-template-columns: 1fr;
+  .apps-section {
+    padding-inline: 16px;
   }
 
   .app-icon-wrap {
