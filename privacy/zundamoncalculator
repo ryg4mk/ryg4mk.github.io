@@ -166,3 +166,168 @@ E-mail：<br>
 
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Zundamon Calculator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+            background: #f8fff6;
+        }
+
+        h1 {
+            color: #2e7d32;
+            border-bottom: 3px solid #7ed957;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #388e3c;
+            margin-top: 35px;
+        }
+
+        .date {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        a {
+            color: #2e7d32;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+
+<p class="date">
+Last Updated: August 2, 2026
+</p>
+
+<p>
+Banana Kuma Games ("we", "our", or "us") respects your privacy.
+This Privacy Policy explains how the application
+<strong>Zundamon Calculator</strong> ("the App")
+handles user information.
+</p>
+
+<h2>1. Information We Collect</h2>
+
+<p>
+The App does not collect personally identifiable information such as your name,
+address, telephone number, or email address.
+</p>
+
+<p>
+For advertising and service improvement purposes,
+third-party services may collect certain information, including:
+</p>
+
+<ul>
+<li>Advertising ID</li>
+<li>Device information</li>
+<li>IP address</li>
+<li>App usage information</li>
+<li>Crash reports</li>
+<li>Advertisement impressions and click information</li>
+</ul>
+
+<h2>2. Advertising</h2>
+
+<p>
+The App uses Google AdMob to display advertisements.
+</p>
+
+<p>
+Advertising services may use cookies or advertising identifiers
+to provide personalized or non-personalized ads.
+</p>
+
+<p>
+For more information, please refer to Google's Privacy Policy:
+</p>
+
+<p>
+<a href="https://policies.google.com/privacy" target="_blank">
+Google Privacy Policy
+</a>
+</p>
+
+<h2>3. GDPR (EEA, United Kingdom, and Switzerland)</h2>
+
+<p>
+For users located in applicable regions,
+the App uses Google's User Messaging Platform (UMP)
+to request consent for personalized advertising when required.
+</p>
+
+<p>
+Users may review or change their consent choices through the consent dialog when available.
+</p>
+
+<h2>4. App Usage and Crash Reports</h2>
+
+<p>
+The App may collect anonymous usage statistics and crash reports
+to improve stability, performance, and user experience.
+</p>
+
+<p>
+This information is used solely for improving the App.
+</p>
+
+<h2>5. Sharing Information</h2>
+
+<p>
+We do not sell or provide personal information to third parties,
+except where required by applicable law.
+</p>
+
+<h2>6. Third-Party Services</h2>
+
+<ul>
+<li>Google AdMob</li>
+<li>Google User Messaging Platform (UMP)</li>
+</ul>
+
+<h2>7. Changes to This Privacy Policy</h2>
+
+<p>
+This Privacy Policy may be updated from time to time without prior notice.
+Any changes become effective when posted on this page.
+</p>
+
+<h2>8. Contact</h2>
+
+<p>
+Banana Kuma Games
+</p>
+
+<p>
+E-mail:<br>
+<a href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a>
+</p>
+
+<footer>
+© 2026 Banana Kuma Games
+</footer>
+
+</body>
+</html>
