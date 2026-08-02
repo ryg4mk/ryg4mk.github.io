@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー | ずんだもん電卓</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+            background: #f8fff6;
+        }
+
+        h1 {
+            color: #2e7d32;
+            border-bottom: 3px solid #7ed957;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #388e3c;
+            margin-top: 35px;
+        }
+
+        .date {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        a {
+            color: #2e7d32;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>プライバシーポリシー</h1>
+
+<p class="date">
+最終更新日：2026年8月2日
+</p>
+
+<p>
+Banana Kuma Games（以下、「当方」といいます。）は、
+アプリ「ずんだもん電卓」（以下、「本アプリ」といいます。）において、
+利用者のプライバシーを尊重し、適切な情報の取り扱いに努めます。
+</p>
+
+<h2>1. 取得する情報</h2>
+
+<p>
+本アプリでは、氏名・住所・電話番号・メールアドレスなど、
+利用者を直接特定できる個人情報は取得しません。
+</p>
+
+<p>
+広告配信およびサービス改善のため、
+広告SDK等を通じて以下の情報が取得される場合があります。
+</p>
+
+<ul>
+<li>広告ID（Advertising ID）</li>
+<li>端末情報</li>
+<li>IPアドレス</li>
+<li>アプリの利用状況</li>
+<li>クラッシュ情報</li>
+<li>広告の表示・クリック情報</li>
+</ul>
+
+<h2>2. 広告について</h2>
+
+<p>
+本アプリでは、Google AdMobを利用して広告を配信しています。
+</p>
+
+<p>
+広告配信にはCookieや広告ID等が利用される場合があります。
+</p>
+
+<p>
+Googleによる情報の取り扱いについては、以下をご確認ください。
+</p>
+
+<p>
+<a href="https://policies.google.com/privacy" target="_blank">
+Google プライバシーポリシー
+</a>
+</p>
+
+<h2>3. GDPR（EEA・英国・スイス）への対応</h2>
+
+<p>
+対象地域の利用者には、
+Google User Messaging Platform（UMP）を利用し、
+必要に応じて広告配信に関する同意を取得します。
+</p>
+
+<p>
+利用者は表示される同意画面から、
+同意内容を変更または拒否できます。
+</p>
+
+<h2>4. 利用状況・クラッシュ情報</h2>
+
+<p>
+本アプリでは、
+品質向上および不具合修正のため、
+利用状況やクラッシュ情報が取得される場合があります。
+</p>
+
+<p>
+取得した情報は、
+アプリの改善以外の目的では利用しません。
+</p>
+
+<h2>5. 第三者への提供</h2>
+
+<p>
+法令に基づく場合を除き、
+取得した情報を第三者へ販売または提供することはありません。
+</p>
+
+<h2>6. 利用しているサービス</h2>
+
+<ul>
+<li>Google AdMob</li>
+<li>Google User Messaging Platform（UMP）</li>
+</ul>
+
+<h2>7. プライバシーポリシーの変更</h2>
+
+<p>
+本ポリシーは、
+必要に応じて予告なく変更することがあります。
+</p>
+
+<p>
+変更後は本ページへ掲載した時点から効力を生じます。
+</p>
+
+<h2>8. お問い合わせ</h2>
+
+<p>
+Banana Kuma Games
+</p>
+
+<p>
+E-mail：<br>
+<a href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a>
+</p>
+
+<footer>
+© 2026 Banana Kuma Games
+</footer>
+
+</body>
+</html>
