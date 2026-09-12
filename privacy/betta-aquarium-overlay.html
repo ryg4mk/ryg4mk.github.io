@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Betta Aquarium OverlayのTwitch連携、認証情報、水槽設定、追加画像の取扱いについて。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>プライバシーポリシー | Betta Aquarium Overlay</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", Meiryo, sans-serif; color: #202c3a; background: #f5f8fc; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-size: 1rem; line-height: 1.85; overflow-wrap: anywhere; }
+    main { max-width: 52rem; margin: 2rem auto; padding: 2.5rem; background: #fff; border: 1px solid #d9e2ed; border-radius: .75rem; }
+    h1 { margin: 0 0 1rem; font-size: clamp(1.6rem, 4vw, 2.1rem); line-height: 1.45; color: #154775; }
+    h1 span { display: block; font-size: .65em; margin-top: .3rem; }
+    h2 { margin: 0 0 .75rem; font-size: 1.25rem; line-height: 1.5; color: #154775; }
+    section { margin-top: 2rem; }
+    p { margin: .7rem 0; }
+    ul, ol { padding-left: 1.5rem; }
+    li { margin: .45rem 0; }
+    a { color: #125b9c; text-underline-offset: .2em; }
+    a:focus-visible { outline: 3px solid #125b9c; outline-offset: 3px; }
+    code { font-size: .92em; }
+    .dates { color: #536273; }
+    .path { padding: .8rem 1rem; background: #f0f5fa; border-radius: .35rem; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #d9e2ed; }
+    @media (max-width: 600px) { main { margin: 0; padding: 1.5rem 1.1rem; border: 0; border-radius: 0; } }
+    @media print { :root { background: #fff; } main { border: 0; margin: 0; padding: 0; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Betta Aquarium Overlay<span>プライバシーポリシー</span></h1>
+    <p class="dates">制定日：2026年9月12日<br>最終更新日：2026年9月12日</p>
+    <p>本ポリシーは、Windows向けアプリ「Betta Aquarium Overlay」（以下「本アプリ」）における情報の取扱いを説明します。本アプリは、OBSやWindowsデスクトップ上に透明な水槽を表示し、任意のTwitch連携により、チャネルポイント交換者のプロフィール画像を水槽のエサとして表示します。</p>
+  </header>
+
+  <section aria-labelledby="data">
+    <h2 id="data">1. 取得・利用する情報と目的</h2>
+    <p>Twitch連携を有効にした場合、本アプリはTwitch認証、API、イベント通知を使用し、次の情報を扱います。</p>
+    <ul>
+      <li><strong>接続した配信者の認証情報：</strong>アクセストークン、更新用トークン、権限・有効期限に関する情報。Twitchへの認証、接続の維持、チャネルポイント交換の通知受信に使用します。</li>
+      <li><strong>Twitchユーザー情報：</strong>接続した配信者やチャネルポイント交換者のユーザーID、ログイン名、表示名。接続状態の表示、交換者の識別、プロフィール情報の取得に使用します。</li>
+      <li><strong>交換者のプロフィール画像URL・画像：</strong>チャネルポイントを交換した視聴者のプロフィール画像を、水槽のエサとして表示するために使用します。</li>
+      <li><strong>チャネルポイント交換情報：</strong>交換ID、対象報酬のID・名称・ポイント数、交換時刻、状態、通知ID。Twitchから通知に含まれる入力文も受信することがあります。対象報酬の判別、交換者の特定、重複通知の除外、動作確認に使用します。入力文はエサの画像表示には使用しません。</li>
+    </ul>
+    <p>Twitchへのログイン・認証はTwitchのページで行います。本アプリがTwitchのパスワードを入力させたり保存したりする仕組みはありません。</p>
+    <p>水槽設定、魚・エサの表示名やON/OFF、ユーザーが追加した画像、デスクトップ水槽の表示位置・サイズ・モニター設定などは、ユーザーの設定を保存し、次回起動時に復元するために使用します。</p>
+  </section>
+
+  <section aria-labelledby="storage">
+    <h2 id="storage">2. ユーザーPC内の保存と認証情報の保護</h2>
+    <p>Windows版の設定・追加画像・Twitch認証情報は、通常、ユーザーPCの次のAppDataフォルダに保存します。</p>
+    <p class="path"><code>C:\Users\&lt;ユーザー名&gt;\AppData\Roaming\my-aquarium-twitch-desktop</code></p>
+    <ul>
+      <li><code>settings.json</code>：水槽設定、アセットの管理情報など。</li>
+      <li><code>desktop-window-state.json</code>：デスクトップ表示の設定など。</li>
+      <li><code>assets/fish</code>・<code>assets/food</code>：追加した魚・エサ画像。</li>
+      <li><code>twitch/twitch-auth.json</code>：保護されたTwitch認証情報。</li>
+    </ul>
+    <p>新たに保存するTwitch認証トークンは、ElectronのsafeStorageを通じてWindows DPAPIで暗号化・保護します。トークンは水槽設定の<code>settings.json</code>へ混ぜず、画面や動作ログにも表示しません。EXEにはユーザーの認証トークンを含めません。</p>
+    <p>旧形式の平文の認証ファイルは、Windowsの保護機能が利用可能な場合、読み込み時に保護形式へ移行します。保護機能を利用できない場合、旧ファイルが自動変換されないことがあります。DPAPIは、同じWindowsユーザー権限で動く不正なソフトウェア等からのアクセスまで完全に防ぐものではありません。</p>
+    <p>プロフィール情報は通信回数を減らすため、アプリのメモリ内に一時キャッシュします（有効期間の目安は20分）。交換通知の重複除外情報やエサの待機列もメモリ内で管理します。これらはアプリ終了により失われますが、画像はElectronやOBS等のブラウザキャッシュに残ることがあります。</p>
+    <p>動作確認用のログには、表示名、ユーザーID、報酬情報、交換ID・時刻などが出力されることがあります。ユーザーがログを保存・共有した場合、そのコピーは別途残ります。設定・追加画像・保存済み認証情報には一律の自動削除期限を設けず、ユーザーの削除操作等までPC内に保持します。</p>
+    <p>ブラウザ単体版の設定画面では、従来どおり設定ファイルを保存・ダウンロードする方式を使用します。追加画像をData URLとして設定に含める場合があり、旧形式の設定も読み込み可能です。</p>
+  </section>
+
+  <section aria-labelledby="sharing">
+    <h2 id="sharing">3. 外部通信と配信での表示</h2>
+    <p>Twitch連携では、認証、接続維持、交換通知の受信、プロフィール取得のためにTwitchへ通信します。プロフィール画像の表示時には、その画像の配信元にも通信します。これらの通信先では、IPアドレス等の通常の通信情報が扱われることがあります。Twitch側の情報の取扱いについては、<a href="https://legal.twitch.com/en/legal/privacy-notice/">Twitchのプライバシー通知</a>をご確認ください。</p>
+    <p>本アプリには、認証情報、取得したTwitch情報、水槽設定、追加画像を、開発者の外部サーバーへ継続的にアップロード・保存する仕組みはありません。本アプリを通じて取得した個人情報を販売しません。</p>
+    <p>OBS等へ水槽を表示するローカルサーバーは、通常<code>127.0.0.1:17380</code>を使用します。これはユーザーPC内の通信先であり、開発者の外部サーバーではありません。水槽の表示用データとして、交換者の表示名とプロフィール画像URLを同じPC上の表示ページへ渡します。</p>
+    <p>ユーザーが水槽を配信・録画した場合、交換者のプロフィール画像が視聴者や動画の閲覧者に表示され、配信先や録画ファイルに残る場合があります。本アプリの接続解除やデータ削除では、公開済みの配信・動画や第三者が保存したコピーまで削除できません。</p>
+  </section>
+
+  <section aria-labelledby="disconnect">
+    <h2 id="disconnect">4. Twitch接続の解除</h2>
+    <p>設定画面のTwitchセクションで「接続を解除」を押すと、Twitchのイベント接続を停止し、本アプリがAppDataに保存した認証ファイルを削除します。Twitch未接続でも、通常の水槽表示は利用できます。</p>
+    <p>接続解除は、Twitch側で与えたアクセス許可を取り消す操作とは別です。必要に応じて、Twitchのアカウントの接続設定でも本アプリとの連携を解除してください。また、既に表示・待機しているエサや一時キャッシュが直ちにすべて消去されるとは限りません。</p>
+  </section>
+
+  <section aria-labelledby="delete">
+    <h2 id="delete">5. アプリデータの削除</h2>
+    <p>アプリ内の画像管理で、追加した魚・エサ画像を削除できます。設定も含めてアプリの保存データをすべて削除する場合は、次の操作を行ってください。</p>
+    <ol>
+      <li>Betta Aquarium Overlayを終了します。</li>
+      <li>上記の<code>my-aquarium-twitch-desktop</code>フォルダを削除します。</li>
+    </ol>
+    <p>この操作で設定、追加画像、保存済みTwitch認証情報などが削除されます。必要な画像や設定は事前にバックアップしてください。EXEファイルを削除しただけではAppDataのデータは残ります。ユーザーが別の場所へ保存した設定・画像・ログ・バックアップや、OBS等のキャッシュは、各保存先で別途削除してください。</p>
+  </section>
+
+  <section aria-labelledby="page">
+    <h2 id="page">6. このポリシーページについて</h2>
+    <p>このページはGitHub Pagesで公開します。このHTMLには独自のアクセス解析、広告、入力フォーム、Cookieを設定するスクリプトを含めていません。ただし、GitHub Pagesへのアクセス時には、GitHubがセキュリティ目的で閲覧者のIPアドレスを記録・保存します。詳しくは<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub Pagesのデータ収集について</a>および<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHubのプライバシー声明</a>をご確認ください。</p>
+  </section>
+
+  <section aria-labelledby="contact">
+    <h2 id="contact">7. 運営者・お問い合わせ</h2>
+    <p>運営者：Reiwa Labo RO</p>
+    <p>お問い合わせ先：<a href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a></p>
+    <p>本アプリの情報の取扱いに関するご質問は、上記窓口へお問い合わせください。お問い合わせに認証トークンや認証ファイルを添付しないでください。</p>
+  </section>
+
+  <footer>
+    <h2>8. 本ポリシーの変更</h2>
+    <p>情報の取扱いが変わる場合は、実際の仕様に合わせて本ページを更新し、更新日を記載します。</p>
+  </footer>
+</main>
+</body>
+</html>
