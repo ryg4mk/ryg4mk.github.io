@@ -24,12 +24,18 @@
     .dates { color: #536273; }
     .path { padding: .8rem 1rem; background: #f0f5fa; border-radius: .35rem; }
     footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #d9e2ed; }
+    nav { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .language-notice { color: #536273; }
+    hr { margin: 3rem 0; border: 0; border-top: 2px solid #d9e2ed; }
     @media (max-width: 600px) { main { margin: 0; padding: 1.5rem 1.1rem; border: 0; border-radius: 0; } }
     @media print { :root { background: #fff; } main { border: 0; margin: 0; padding: 0; } }
   </style>
 </head>
 <body>
 <main>
+  <nav aria-label="Language / 言語"><a href="#japanese" lang="en">Japanese</a><a href="#english" lang="en">English</a></nav>
+  <p class="language-notice">日本語版を正式版とします。日本語版と英語版に相違がある場合は、日本語版を優先します。<br><span lang="en">The Japanese version is authoritative. If there is any discrepancy between the Japanese and English versions, the Japanese version prevails.</span></p>
+  <article id="japanese" lang="ja">
   <header>
     <h1>Betta Aquarium Overlay<span>プライバシーポリシー</span></h1>
     <p class="dates">制定日：2026年9月12日<br>最終更新日：2026年9月12日</p>
@@ -106,6 +112,89 @@
     <h2>8. 本ポリシーの変更</h2>
     <p>情報の取扱いが変わる場合は、実際の仕様に合わせて本ページを更新し、更新日を記載します。</p>
   </footer>
+  </article>
+
+  <hr>
+  <article id="english" lang="en">
+    <nav aria-label="Language"><a href="#japanese">Japanese</a><a href="#english">English</a></nav>
+    <header>
+      <h1>Betta Aquarium Overlay<span>Privacy Policy</span></h1>
+      <p class="dates">Established: September 12, 2026<br>Last updated: September 12, 2026</p>
+      <p>This policy explains how information is handled by the Windows application Betta Aquarium Overlay (the “App”). The App displays a transparent aquarium in OBS or on the Windows desktop. Through optional Twitch integration, it displays the profile images of viewers who redeem Channel Points as food in the aquarium.</p>
+    </header>
+
+    <section aria-labelledby="en-data">
+      <h2 id="en-data">1. Information Obtained and Used, and Its Purposes</h2>
+      <p>When Twitch integration is enabled, the App uses Twitch authentication, APIs, and event notifications to handle the following information.</p>
+      <ul>
+        <li><strong>Authentication information for the connected streamer:</strong> Access tokens, refresh tokens, and information about permissions and expiration. This information is used to authenticate with Twitch, maintain the connection, and receive Channel Points redemption notifications.</li>
+        <li><strong>Twitch user information:</strong> User IDs, login names, and display names of the connected streamer and viewers who redeem Channel Points. This information is used to display connection status, identify redeemers, and obtain profile information.</li>
+        <li><strong>Redeemers’ profile image URLs and images:</strong> These are used to display the profile images of viewers who redeem Channel Points as food in the aquarium.</li>
+        <li><strong>Channel Points redemption information:</strong> Redemption IDs; IDs, titles, and point costs of relevant rewards; redemption times; status; and notification IDs. The App may also receive user-entered text included in Twitch notifications. This information is used to identify relevant rewards and redeemers, remove duplicate notifications, and check operation. User-entered text is not used to display food images.</li>
+      </ul>
+      <p>Twitch login and authorization take place on Twitch’s pages. The App has no mechanism for requesting or storing your Twitch password.</p>
+      <p>Aquarium settings, fish and food display names and ON/OFF settings, user-added images, and desktop aquarium position, size, and monitor settings are used to save your preferences and restore them the next time the App starts.</p>
+    </section>
+
+    <section aria-labelledby="en-storage">
+      <h2 id="en-storage">2. Storage on Your PC and Protection of Authentication Information</h2>
+      <p>The Windows version normally stores settings, added images, and Twitch authentication information in the following AppData folder on your PC.</p>
+      <p class="path"><code>C:\Users\&lt;username&gt;\AppData\Roaming\my-aquarium-twitch-desktop</code></p>
+      <ul>
+        <li><code>settings.json</code>: Aquarium settings, asset management information, and related data.</li>
+        <li><code>desktop-window-state.json</code>: Desktop display settings and related data.</li>
+        <li><code>assets/fish</code> and <code>assets/food</code>: Added fish and food images.</li>
+        <li><code>twitch/twitch-auth.json</code>: Protected Twitch authentication information.</li>
+      </ul>
+      <p>Newly saved Twitch authentication tokens are encrypted and protected using Windows DPAPI through Electron’s safeStorage. Tokens are not mixed into the aquarium settings in <code>settings.json</code> and are not displayed on screen or in operation logs. The EXE does not include users’ authentication tokens.</p>
+      <p>When Windows protection is available, older plaintext authentication files are migrated to the protected format when read. If the protection feature is unavailable, an older file may not be converted automatically. DPAPI does not completely prevent access by malicious software running with the same Windows user privileges.</p>
+      <p>Profile information is temporarily cached in the App’s memory to reduce the number of requests (with an approximate validity period of 20 minutes). Information used to remove duplicate redemption notifications and the food queue are also managed in memory. These are lost when the App exits, but images may remain in the browser caches of Electron, OBS, or similar software.</p>
+      <p>Operation logs may contain display names, user IDs, reward information, redemption IDs, and times for diagnostic purposes. Copies may remain separately if you save or share logs. Settings, added images, and saved authentication information have no uniform automatic deletion deadline and are retained on your PC until you delete them or another deletion occurs.</p>
+      <p>The settings page used in a standalone browser continues to use the existing method of saving or downloading a configuration file. Added images may be included in settings as Data URLs, and older configuration formats can also be read.</p>
+    </section>
+
+    <section aria-labelledby="en-sharing">
+      <h2 id="en-sharing">3. External Communications and Display in Streams</h2>
+      <p>Twitch integration communicates with Twitch for authentication, connection maintenance, redemption notifications, and profile retrieval. Displaying profile images also involves communication with the image provider. These destinations may handle ordinary connection information, such as your IP address. Please see <a href="https://legal.twitch.com/en/legal/privacy-notice/">Twitch’s Privacy Notice</a> for information about Twitch’s handling of data.</p>
+      <p>The App has no mechanism for continuously uploading or storing authentication information, obtained Twitch information, aquarium settings, or added images on the developer’s external servers. Personal information obtained through the App is not sold.</p>
+      <p>The local server used to display the aquarium in OBS and similar software normally uses <code>127.0.0.1:17380</code>. This is a communication endpoint on your own PC, not the developer’s external server. Redeemers’ display names and profile image URLs are passed to display pages on the same PC as aquarium display data.</p>
+      <p>If you stream or record the aquarium, redeemers’ profile images may be shown to stream or video viewers and may remain on the streaming service or in recorded files. Disconnecting the App or deleting its data cannot delete previously published streams or videos, or copies saved by others.</p>
+    </section>
+
+    <section aria-labelledby="en-disconnect">
+      <h2 id="en-disconnect">4. Disconnecting Twitch</h2>
+      <p>Press “接続を解除” (Disconnect) in the Twitch section of the settings page to stop the Twitch event connection and delete the authentication file saved by the App in AppData. Normal aquarium display remains available without a Twitch connection.</p>
+      <p>Disconnecting is separate from revoking the access permission granted on Twitch. If needed, also disconnect the App in your Twitch account’s connection settings. Food that is already displayed or queued, and temporary caches, may not all be cleared immediately.</p>
+    </section>
+
+    <section aria-labelledby="en-delete">
+      <h2 id="en-delete">5. Deleting App Data</h2>
+      <p>You can delete added fish and food images through the App’s image management interface. To delete all of the App’s saved data, including settings, follow these steps.</p>
+      <ol>
+        <li>Exit Betta Aquarium Overlay.</li>
+        <li>Delete the <code>my-aquarium-twitch-desktop</code> folder described above.</li>
+      </ol>
+      <p>This deletes settings, added images, saved Twitch authentication information, and related data. Back up any images or settings you need beforehand. Deleting only the EXE leaves AppData intact. Settings, images, logs, and backups that you saved elsewhere, and caches belonging to OBS or similar software, must be deleted separately at their respective locations.</p>
+    </section>
+
+    <section aria-labelledby="en-page">
+      <h2 id="en-page">6. About This Policy Page</h2>
+      <p>This page is published on GitHub Pages. This HTML does not include its own analytics, advertisements, input forms, or scripts that set cookies. However, GitHub logs and stores visitors’ IP addresses for security purposes when GitHub Pages is accessed. For details, see <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub Pages data collection information</a> and the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>.</p>
+    </section>
+
+    <section aria-labelledby="en-contact">
+      <h2 id="en-contact">7. Operator and Contact</h2>
+      <p>Operator: Reiwa Labo RO</p>
+      <p>Contact: <a href="mailto:ryg4mk@gmail.com">ryg4mk@gmail.com</a></p>
+      <p>Please use the contact above for questions about the App’s handling of information. Do not attach authentication tokens or authentication files to your inquiry.</p>
+    </section>
+
+    <footer>
+      <h2>8. Changes to This Policy</h2>
+      <p>If information handling changes, this page will be updated to reflect the actual implementation, and the update date will be indicated.</p>
+      <p class="language-notice">The Japanese version is authoritative. If there is any discrepancy between the Japanese and English versions, the Japanese version prevails. <a href="#japanese">Back to Japanese</a></p>
+    </footer>
+  </article>
 </main>
 </body>
 </html>
