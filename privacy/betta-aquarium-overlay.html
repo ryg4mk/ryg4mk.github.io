@@ -38,8 +38,9 @@
   <article id="japanese" lang="ja">
   <header>
     <h1>Betta Aquarium Overlay<span>プライバシーポリシー</span></h1>
-    <p class="dates">制定日：2026年9月12日<br>最終更新日：2026年9月12日</p>
+    <p class="dates">制定日：2026年9月12日<br>最終更新日：2026年9月15日</p>
     <p>本ポリシーは、Windows向けアプリ「Betta Aquarium Overlay」（以下「本アプリ」）における情報の取扱いを説明します。本アプリは、OBSやWindowsデスクトップ上に透明な水槽を表示し、任意のTwitch連携により、チャネルポイント交換者のプロフィール画像を水槽のエサとして表示します。</p>
+    <p>現在のWindows販売版は、TauriとMicrosoft Edge WebView2を使用します。</p>
   </header>
 
   <section aria-labelledby="data">
@@ -59,15 +60,17 @@
     <h2 id="storage">2. ユーザーPC内の保存と認証情報の保護</h2>
     <p>Windows版の設定・追加画像・Twitch認証情報は、通常、ユーザーPCの次のAppDataフォルダに保存します。</p>
     <p class="path"><code>C:\Users\&lt;ユーザー名&gt;\AppData\Roaming\my-aquarium-twitch-desktop</code></p>
+    <p>環境変数を使った表記は<code>%APPDATA%\my-aquarium-twitch-desktop</code>です。</p>
     <ul>
       <li><code>settings.json</code>：水槽設定、アセットの管理情報など。</li>
       <li><code>desktop-window-state.json</code>：デスクトップ表示の設定など。</li>
       <li><code>assets/fish</code>・<code>assets/food</code>：追加した魚・エサ画像。</li>
-      <li><code>twitch/twitch-auth.json</code>：保護されたTwitch認証情報。</li>
+      <li><code>twitch/tauri-auth.dpapi</code>：この版の暗号化されたTwitch認証情報。</li>
+      <li><code>tauri-webview</code>：WebView2のキャッシュなど。</li>
     </ul>
-    <p>新たに保存するTwitch認証トークンは、ElectronのsafeStorageを通じてWindows DPAPIで暗号化・保護します。トークンは水槽設定の<code>settings.json</code>へ混ぜず、画面や動作ログにも表示しません。EXEにはユーザーの認証トークンを含めません。</p>
-    <p>旧形式の平文の認証ファイルは、Windowsの保護機能が利用可能な場合、読み込み時に保護形式へ移行します。保護機能を利用できない場合、旧ファイルが自動変換されないことがあります。DPAPIは、同じWindowsユーザー権限で動く不正なソフトウェア等からのアクセスまで完全に防ぐものではありません。</p>
-    <p>プロフィール情報は通信回数を減らすため、アプリのメモリ内に一時キャッシュします（有効期間の目安は20分）。交換通知の重複除外情報やエサの待機列もメモリ内で管理します。これらはアプリ終了により失われますが、画像はElectronやOBS等のブラウザキャッシュに残ることがあります。</p>
+    <p>Twitch認証トークンはWindows DPAPIで直接暗号化し、<code>%APPDATA%\my-aquarium-twitch-desktop\twitch\tauri-auth.dpapi</code>へ保存します。トークンは水槽設定の<code>settings.json</code>へ混ぜず、画面や動作ログにも表示しません。EXEにはユーザーの認証トークンを含めません。</p>
+    <p>この版は旧版の認証ファイルを読み込み・上書き・削除しません。Tauri版の初回利用時はTwitchへの認証が必要です。DPAPIは、同じWindowsユーザー権限で動く不正なソフトウェア等からのアクセスまで完全に防ぐものではありません。</p>
+    <p>プロフィール情報は通信回数を減らすため、アプリのメモリ内に一時キャッシュします（有効期間の目安は20分）。交換通知の重複除外情報やエサの待機列もメモリ内で管理します。これらはアプリ終了により失われますが、画像はWebView2やOBS等のブラウザキャッシュに残ることがあります。</p>
     <p>動作確認用のログには、表示名、ユーザーID、報酬情報、交換ID・時刻などが出力されることがあります。ユーザーがログを保存・共有した場合、そのコピーは別途残ります。設定・追加画像・保存済み認証情報には一律の自動削除期限を設けず、ユーザーの削除操作等までPC内に保持します。</p>
     <p>ブラウザ単体版の設定画面では、従来どおり設定ファイルを保存・ダウンロードする方式を使用します。追加画像をData URLとして設定に含める場合があり、旧形式の設定も読み込み可能です。</p>
   </section>
@@ -76,13 +79,13 @@
     <h2 id="sharing">3. 外部通信と配信での表示</h2>
     <p>Twitch連携では、認証、接続維持、交換通知の受信、プロフィール取得のためにTwitchへ通信します。プロフィール画像の表示時には、その画像の配信元にも通信します。これらの通信先では、IPアドレス等の通常の通信情報が扱われることがあります。Twitch側の情報の取扱いについては、<a href="https://legal.twitch.com/en/legal/privacy-notice/">Twitchのプライバシー通知</a>をご確認ください。</p>
     <p>本アプリには、認証情報、取得したTwitch情報、水槽設定、追加画像を、開発者の外部サーバーへ継続的にアップロード・保存する仕組みはありません。本アプリを通じて取得した個人情報を販売しません。</p>
-    <p>OBS等へ水槽を表示するローカルサーバーは、通常<code>127.0.0.1:17380</code>を使用します。これはユーザーPC内の通信先であり、開発者の外部サーバーではありません。水槽の表示用データとして、交換者の表示名とプロフィール画像URLを同じPC上の表示ページへ渡します。</p>
+    <p>OBS等へ水槽を表示するローカルサーバー（Bridge）は、<code>127.0.0.1:17380</code>だけで接続を受け付けます。OBS用URLは<code>http://127.0.0.1:17380/twitch.html</code>です。これはユーザーPC内の通信先であり、インターネットへ公開されるURLや開発者の外部サーバーではありません。水槽の表示用データとして、交換者の表示名とプロフィール画像URLを同じPC上の表示ページへ渡します。また、OBS表示に必要な水槽設定や、追加画像を含む魚・エサ画像をこのローカルサーバーから読み込みます。認証トークンは渡しません。アプリを終了するとローカルサーバーも停止します。</p>
     <p>ユーザーが水槽を配信・録画した場合、交換者のプロフィール画像が視聴者や動画の閲覧者に表示され、配信先や録画ファイルに残る場合があります。本アプリの接続解除やデータ削除では、公開済みの配信・動画や第三者が保存したコピーまで削除できません。</p>
   </section>
 
   <section aria-labelledby="disconnect">
     <h2 id="disconnect">4. Twitch接続の解除</h2>
-    <p>設定画面のTwitchセクションで「接続を解除」を押すと、Twitchのイベント接続を停止し、本アプリがAppDataに保存した認証ファイルを削除します。Twitch未接続でも、通常の水槽表示は利用できます。</p>
+    <p>設定画面のTwitchセクションで「接続を解除」を押すと、Twitchのイベント接続を停止し、この版がAppDataに保存した<code>twitch/tauri-auth.dpapi</code>を削除します。Twitch未接続でも、通常の水槽表示やOBS用ローカルサーバーは利用できます。</p>
     <p>接続解除は、Twitch側で与えたアクセス許可を取り消す操作とは別です。必要に応じて、Twitchのアカウントの接続設定でも本アプリとの連携を解除してください。また、既に表示・待機しているエサや一時キャッシュが直ちにすべて消去されるとは限りません。</p>
   </section>
 
@@ -119,8 +122,9 @@
     <nav aria-label="Language"><a href="#japanese">Japanese</a><a href="#english">English</a></nav>
     <header>
       <h1>Betta Aquarium Overlay<span>Privacy Policy</span></h1>
-      <p class="dates">Established: September 12, 2026<br>Last updated: September 12, 2026</p>
+      <p class="dates">Established: September 12, 2026<br>Last updated: September 15, 2026</p>
       <p>This policy explains how information is handled by the Windows application Betta Aquarium Overlay (the “App”). The App displays a transparent aquarium in OBS or on the Windows desktop. Through optional Twitch integration, it displays the profile images of viewers who redeem Channel Points as food in the aquarium.</p>
+      <p>The current Windows version sold to users uses Tauri and Microsoft Edge WebView2.</p>
     </header>
 
     <section aria-labelledby="en-data">
@@ -140,15 +144,17 @@
       <h2 id="en-storage">2. Storage on Your PC and Protection of Authentication Information</h2>
       <p>The Windows version normally stores settings, added images, and Twitch authentication information in the following AppData folder on your PC.</p>
       <p class="path"><code>C:\Users\&lt;username&gt;\AppData\Roaming\my-aquarium-twitch-desktop</code></p>
+      <p>Using the environment variable, this path is <code>%APPDATA%\my-aquarium-twitch-desktop</code>.</p>
       <ul>
         <li><code>settings.json</code>: Aquarium settings, asset management information, and related data.</li>
         <li><code>desktop-window-state.json</code>: Desktop display settings and related data.</li>
         <li><code>assets/fish</code> and <code>assets/food</code>: Added fish and food images.</li>
-        <li><code>twitch/twitch-auth.json</code>: Protected Twitch authentication information.</li>
+        <li><code>twitch/tauri-auth.dpapi</code>: Encrypted Twitch authentication information for this version.</li>
+        <li><code>tauri-webview</code>: WebView2 caches and related data.</li>
       </ul>
-      <p>Newly saved Twitch authentication tokens are encrypted and protected using Windows DPAPI through Electron’s safeStorage. Tokens are not mixed into the aquarium settings in <code>settings.json</code> and are not displayed on screen or in operation logs. The EXE does not include users’ authentication tokens.</p>
-      <p>When Windows protection is available, older plaintext authentication files are migrated to the protected format when read. If the protection feature is unavailable, an older file may not be converted automatically. DPAPI does not completely prevent access by malicious software running with the same Windows user privileges.</p>
-      <p>Profile information is temporarily cached in the App’s memory to reduce the number of requests (with an approximate validity period of 20 minutes). Information used to remove duplicate redemption notifications and the food queue are also managed in memory. These are lost when the App exits, but images may remain in the browser caches of Electron, OBS, or similar software.</p>
+      <p>Twitch authentication tokens are encrypted directly using Windows DPAPI and saved to <code>%APPDATA%\my-aquarium-twitch-desktop\twitch\tauri-auth.dpapi</code>. Tokens are not mixed into the aquarium settings in <code>settings.json</code> and are not displayed on screen or in operation logs. The EXE does not include users’ authentication tokens.</p>
+      <p>This version does not read, overwrite, or delete authentication files from the older version. Twitch authorization is required when first using the Tauri version. DPAPI does not completely prevent access by malicious software running with the same Windows user privileges.</p>
+      <p>Profile information is temporarily cached in the App’s memory to reduce the number of requests (with an approximate validity period of 20 minutes). Information used to remove duplicate redemption notifications and the food queue are also managed in memory. These are lost when the App exits, but images may remain in the browser caches of WebView2, OBS, or similar software.</p>
       <p>Operation logs may contain display names, user IDs, reward information, redemption IDs, and times for diagnostic purposes. Copies may remain separately if you save or share logs. Settings, added images, and saved authentication information have no uniform automatic deletion deadline and are retained on your PC until you delete them or another deletion occurs.</p>
       <p>The settings page used in a standalone browser continues to use the existing method of saving or downloading a configuration file. Added images may be included in settings as Data URLs, and older configuration formats can also be read.</p>
     </section>
@@ -157,13 +163,13 @@
       <h2 id="en-sharing">3. External Communications and Display in Streams</h2>
       <p>Twitch integration communicates with Twitch for authentication, connection maintenance, redemption notifications, and profile retrieval. Displaying profile images also involves communication with the image provider. These destinations may handle ordinary connection information, such as your IP address. Please see <a href="https://legal.twitch.com/en/legal/privacy-notice/">Twitch’s Privacy Notice</a> for information about Twitch’s handling of data.</p>
       <p>The App has no mechanism for continuously uploading or storing authentication information, obtained Twitch information, aquarium settings, or added images on the developer’s external servers. Personal information obtained through the App is not sold.</p>
-      <p>The local server used to display the aquarium in OBS and similar software normally uses <code>127.0.0.1:17380</code>. This is a communication endpoint on your own PC, not the developer’s external server. Redeemers’ display names and profile image URLs are passed to display pages on the same PC as aquarium display data.</p>
+      <p>The local server (Bridge) used to display the aquarium in OBS and similar software accepts connections only at <code>127.0.0.1:17380</code>. The OBS URL is <code>http://127.0.0.1:17380/twitch.html</code>. This is a communication endpoint on your own PC, not a URL published to the internet or the developer’s external server. Redeemers’ display names and profile image URLs are passed to display pages on the same PC as aquarium display data. Aquarium settings and fish and food images, including added images, needed for OBS display are also loaded from this local server. Authentication tokens are not passed to these pages. The local server stops when the App exits.</p>
       <p>If you stream or record the aquarium, redeemers’ profile images may be shown to stream or video viewers and may remain on the streaming service or in recorded files. Disconnecting the App or deleting its data cannot delete previously published streams or videos, or copies saved by others.</p>
     </section>
 
     <section aria-labelledby="en-disconnect">
       <h2 id="en-disconnect">4. Disconnecting Twitch</h2>
-      <p>Press “接続を解除” (Disconnect) in the Twitch section of the settings page to stop the Twitch event connection and delete the authentication file saved by the App in AppData. Normal aquarium display remains available without a Twitch connection.</p>
+      <p>Press “接続を解除” (Disconnect) in the Twitch section of the settings page to stop the Twitch event connection and delete <code>twitch/tauri-auth.dpapi</code>, saved by this version in AppData. Normal aquarium display and the local server for OBS remain available without a Twitch connection.</p>
       <p>Disconnecting is separate from revoking the access permission granted on Twitch. If needed, also disconnect the App in your Twitch account’s connection settings. Food that is already displayed or queued, and temporary caches, may not all be cleared immediately.</p>
     </section>
 
