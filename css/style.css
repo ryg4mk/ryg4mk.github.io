@@ -293,6 +293,10 @@ h3 {
   padding-top: 22px;
 }
 
+.app-links.single-link {
+  grid-template-columns: 1fr;
+}
+
 .store-link,
 .policy-link,
 .store-status {
