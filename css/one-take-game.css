@@ -1,0 +1,292 @@
+.otg-page {
+  background: #fffaf0;
+}
+
+.otg-header {
+  width: min(1080px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 22px 0 0;
+}
+
+.otg-home-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  box-shadow: 3px 3px 0 var(--ink);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.otg-home-link:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.otg-hero {
+  width: min(880px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 72px 0 66px;
+  text-align: center;
+}
+
+.otg-kicker {
+  margin: 0 0 8px;
+  color: #8f6a20;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.otg-hero h1 {
+  font-size: clamp(3rem, 10vw, 6.6rem);
+  line-height: 0.94;
+}
+
+.otg-hero h1 span {
+  color: #e69d18;
+}
+
+.otg-tagline {
+  margin: 26px 0 8px;
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+  font-weight: 900;
+}
+
+.otg-intro {
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.otg-rule-line {
+  margin: 20px 0 0;
+  color: #8f6a20;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.otg-list {
+  padding: 70px 16px 90px;
+  background: var(--white);
+  border-block: 2px solid #f5e7c7;
+}
+
+.otg-section-heading,
+.otg-game-card,
+.otg-about {
+  width: min(100%, 1000px);
+  margin-inline: auto;
+}
+
+.otg-section-heading {
+  margin-bottom: 28px;
+}
+
+.otg-section-heading h2,
+.otg-about h2 {
+  margin-bottom: 8px;
+}
+
+.otg-game-card {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 32px;
+  background: #fff7e8;
+  box-shadow: 10px 10px 0 #f3b932;
+}
+
+.otg-preview {
+  position: relative;
+  display: grid;
+  min-height: 520px;
+  padding: 30px 24px;
+  place-items: center;
+  background: #f0dfc5;
+  border-right: 3px solid var(--ink);
+}
+
+.otg-preview-label {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  left: 16px;
+  padding: 5px 9px;
+  color: #fff;
+  background: var(--ink);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.otg-preview iframe {
+  display: block;
+  width: min(100%, 270px);
+  aspect-ratio: 9 / 16;
+  border: 2px solid var(--ink);
+  border-radius: 22px;
+  background: #f3e5cf;
+  box-shadow: 6px 6px 0 rgba(74, 56, 46, 0.22);
+  pointer-events: none;
+}
+
+.otg-game-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(28px, 5vw, 52px);
+}
+
+.otg-number {
+  margin: 0 0 8px;
+  color: #98701b;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+}
+
+.otg-game-content h2 {
+  margin: 0 0 14px;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.2;
+}
+
+.otg-description {
+  margin: 0;
+  color: var(--muted);
+}
+
+.otg-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 28px 0;
+}
+
+.otg-facts div {
+  min-width: 0;
+  padding: 13px 12px;
+  background: var(--white);
+  border: 2px solid rgba(63, 56, 46, 0.25);
+  border-radius: 14px;
+}
+
+.otg-facts dt {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.otg-facts dd {
+  margin: 4px 0 0;
+  font-weight: 900;
+}
+
+.otg-play-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100%, 300px);
+  min-height: 58px;
+  margin-top: auto;
+  padding: 13px 22px;
+  color: var(--white);
+  background: #4f9f63;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 5px 5px 0 var(--ink);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.otg-play-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.otg-note {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.otg-about {
+  padding: 88px 20px 100px;
+}
+
+.otg-about p:last-child {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.otg-footer-link {
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .otg-hero {
+    padding: 54px 0 52px;
+  }
+
+  .otg-list {
+    padding: 56px 14px 72px;
+  }
+
+  .otg-game-card {
+    grid-template-columns: 1fr;
+    border-radius: 26px;
+    box-shadow: 7px 7px 0 #f3b932;
+  }
+
+  .otg-preview {
+    min-height: 0;
+    padding: 44px 18px 24px;
+    border-right: 0;
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .otg-preview iframe {
+    width: min(100%, 230px);
+  }
+
+  .otg-game-content {
+    padding: 28px 22px 30px;
+  }
+
+  .otg-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .otg-play-button {
+    width: 100%;
+  }
+
+  .otg-about {
+    padding: 72px 16px 82px;
+  }
+}
+
+@media (max-width: 360px) {
+  .otg-header,
+  .otg-hero {
+    width: min(100% - 24px, 1080px);
+  }
+
+  .otg-game-content {
+    padding-inline: 18px;
+  }
+}
