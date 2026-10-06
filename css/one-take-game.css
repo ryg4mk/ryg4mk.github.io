@@ -104,6 +104,10 @@
   box-shadow: 10px 10px 0 #f3b932;
 }
 
+.otg-game-card + .otg-game-card {
+  margin-top: 40px;
+}
+
 .otg-preview {
   position: relative;
   display: grid;
