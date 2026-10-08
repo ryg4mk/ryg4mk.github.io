@@ -100,37 +100,17 @@ async function loadLike(card) {
   });
 }
 
-function setupViews(cards) {
-  const observer = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting || entry.intersectionRatio < 0.45) continue;
+async function loadViews(cards) {
+  await Promise.all(cards.map(async (card) => {
+    const gameId = card.dataset.gameId;
+    const countEl = card.querySelector('[data-view-count]');
+    if (!gameId || !countEl) return;
 
-      const card = entry.target;
-      observer.unobserve(card);
-
-      const gameId = card.dataset.gameId;
-      const countEl = card.querySelector('[data-view-count]');
-      if (!gameId || !countEl) continue;
-
-      const sessionKey = `otg-viewed-${gameId}`;
-      const alreadyViewed = readStored(sessionStorage, sessionKey) === '1';
-
-      void (async () => {
-        const action = isPublished && !alreadyViewed ? 'hit' : 'get';
-
-        if (isPublished && !alreadyViewed) {
-          writeStored(sessionStorage, sessionKey, '1');
-        }
-
-        const value = await requestCounter(action, counterKey(gameId, 'views'));
-        renderCount(countEl, value);
-      })();
-    }
-  }, { threshold: [0.45] });
-
-  cards.forEach((card) => observer.observe(card));
+    const value = await requestCounter('get', counterKey(gameId, 'views'));
+    renderCount(countEl, value ?? 0);
+  }));
 }
 
 const cards = [...document.querySelectorAll('.otg-game-card[data-game-id]')];
 cards.forEach((card) => void loadLike(card));
-setupViews(cards);
+void loadViews(cards);
