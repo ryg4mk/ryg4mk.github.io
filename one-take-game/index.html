@@ -271,5 +271,49 @@
     <p>© 2026 BananaKumaGames</p>
     <p><a class="otg-footer-link" href="../">トップページへ戻る</a></p>
   </footer>
+
+  <script data-preview-autostart>
+    (() => {
+      const started = new WeakSet();
+
+      const startPreview = (frame) => {
+        if (started.has(frame)) return;
+
+        const tryStart = () => {
+          try {
+            const doc = frame.contentDocument;
+            if (!doc) return;
+
+            const startButton = doc.querySelector('#startButton, #action');
+            if (!startButton) return;
+
+            startButton.click();
+            started.add(frame);
+          } catch (_) {
+            // Preview URLs are expected to be same-origin.
+          }
+        };
+
+        if (frame.contentDocument?.readyState === 'complete') {
+          window.setTimeout(tryStart, 250);
+        } else {
+          frame.addEventListener('load', () => window.setTimeout(tryStart, 250), { once: true });
+        }
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+            startPreview(entry.target);
+            observer.unobserve(entry.target);
+          }
+        }
+      }, { threshold: [0.25] });
+
+      document.querySelectorAll('.otg-preview iframe').forEach((frame) => {
+        observer.observe(frame);
+      });
+    })();
+  </script>
 </body>
 </html>
