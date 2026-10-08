@@ -196,6 +196,71 @@
   font-weight: 900;
 }
 
+.otg-social {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 0 0 24px;
+}
+
+.otg-stat,
+.otg-like-button {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  min-height: 42px;
+  padding: 8px 13px;
+  color: var(--ink);
+  background: var(--white);
+  border: 2px solid rgba(63, 56, 46, 0.28);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.otg-stat {
+  cursor: default;
+}
+
+.otg-social-icon {
+  font-size: 0.95rem;
+}
+
+.otg-social-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.otg-like-button {
+  cursor: pointer;
+  font: inherit;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.otg-like-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #fff1ef;
+  border-color: #d37a70;
+}
+
+.otg-like-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.otg-like-button.is-liked {
+  color: #b83b45;
+  background: #ffe6e8;
+  border-color: #c85b63;
+}
+
+.otg-heart {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
 .otg-play-button {
   display: inline-flex;
   align-items: center;
