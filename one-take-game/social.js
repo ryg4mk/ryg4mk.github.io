@@ -1,10 +1,12 @@
 const API_BASE = 'https://countapi.mileshilliard.com/api/v1';
-const KEY_SUFFIX = 'bkg_otg_20261008_v1';
+const LIKE_KEY_SUFFIX = 'bkg_otg_20261008_v1';
+const VIEW_KEY_SUFFIX = 'bkg_otg_views_20261008_v2';
 const isPublished = location.hostname === 'ryg4mk.github.io' &&
   location.pathname.startsWith('/one-take-game/');
 
 function counterKey(gameId, type) {
-  return `one_take_${gameId}_${type}_${KEY_SUFFIX}`;
+  const suffix = type === 'views' ? VIEW_KEY_SUFFIX : LIKE_KEY_SUFFIX;
+  return `one_take_${gameId}_${type}_${suffix}`;
 }
 
 function readStored(storage, key) {
@@ -114,3 +116,7 @@ async function loadViews(cards) {
 const cards = [...document.querySelectorAll('.otg-game-card[data-game-id]')];
 cards.forEach((card) => void loadLike(card));
 void loadViews(cards);
+
+window.addEventListener('pageshow', () => {
+  void loadViews(cards);
+});
