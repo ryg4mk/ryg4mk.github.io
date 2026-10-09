@@ -73,32 +73,29 @@ async function loadLike(card) {
   renderCount(countEl, await requestCounter('get', counterKey(gameId, 'likes')));
 
   button.addEventListener('click', async () => {
-    if (button.dataset.busy === '1') return;
-
     if (readStored(localStorage, likedKey) === '1') {
       button.classList.add('is-liked');
       button.setAttribute('aria-pressed', 'true');
+      button.setAttribute('aria-label', 'いいね済み');
       return;
     }
 
-    button.dataset.busy = '1';
-    button.disabled = true;
+    const currentText = countEl.textContent.replace(/,/g, '');
+    const currentCount = /^\d+$/.test(currentText) ? Number(currentText) : 0;
 
-    const action = isPublished ? 'hit' : 'get';
-    const value = await requestCounter(action, counterKey(gameId, 'likes'));
+    // React immediately on mobile even when the public counter API is slow or blocked.
+    writeStored(localStorage, likedKey, '1');
+    button.classList.add('is-liked');
+    button.setAttribute('aria-pressed', 'true');
+    button.setAttribute('aria-label', 'いいね済み');
+    renderCount(countEl, currentCount + 1);
 
+    if (!isPublished) return;
+
+    const value = await requestCounter('hit', counterKey(gameId, 'likes'));
     if (value !== null) {
       renderCount(countEl, value);
-      if (isPublished) {
-        writeStored(localStorage, likedKey, '1');
-        button.classList.add('is-liked');
-        button.setAttribute('aria-pressed', 'true');
-        button.setAttribute('aria-label', 'いいね済み');
-      }
     }
-
-    button.disabled = false;
-    delete button.dataset.busy;
   });
 }
 
