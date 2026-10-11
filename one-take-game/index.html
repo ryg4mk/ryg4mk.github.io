@@ -417,6 +417,64 @@
           <p class="otg-note">ChatGPTのChatへの制作指示1回のみで完成した状態を、そのまま公開しています。</p>
         </div>
       </article>
+
+      <article class="otg-game-card" data-game-id="009">
+        <div class="otg-preview">
+          <div class="otg-preview-label">LIVE PREVIEW</div>
+          <iframe
+            src="https://ryg4mk.github.io/cat-by-nyalight/"
+            title="キャットバイにゃーライト ゲーム画面プレビュー"
+            loading="lazy"
+            tabindex="-1"
+            aria-hidden="true"
+          ></iframe>
+        </div>
+
+        <div class="otg-game-content">
+          <p class="otg-number">ONE TAKE #009</p>
+          <h2>キャットバイにゃーライト <span class="english-name" lang="en">CatByNyaLight</span></h2>
+          <p class="otg-description">
+            猫に見つからないよう屋敷を進み、チーズを3個食べて巣へ逃げ込むステルス脱出ゲーム。
+            家具で視線を遮り、ダッシュや円形スキルチェックを使いながら脱出を目指します。
+          </p>
+
+          <dl class="otg-facts">
+            <div>
+              <dt>MODEL</dt>
+              <dd>GPT-5.6 Sol</dd>
+            </div>
+            <div>
+              <dt>制作時間</dt>
+              <dd>15分22秒</dd>
+            </div>
+            <div>
+              <dt>チーズ配置</dt>
+              <dd>1,000パターン全件到達可能</dd>
+            </div>
+            <div>
+              <dt>自動プレイ</dt>
+              <dd>300回以上</dd>
+            </div>
+          </dl>
+          <div class="otg-social" aria-label="このゲームの人気">
+            <div class="otg-stat" title="閲覧数">
+              <span class="otg-social-icon" aria-hidden="true">👁</span>
+              <span data-view-count>—</span>
+              <span class="otg-social-label">views</span>
+            </div>
+            <button class="otg-like-button" data-like-button type="button" aria-pressed="false" aria-label="このゲームにいいね">
+              <span class="otg-heart" aria-hidden="true">♥</span>
+              <span data-like-count>—</span>
+            </button>
+          </div>
+
+          <a class="otg-play-button" href="https://ryg4mk.github.io/cat-by-nyalight/">
+            PLAY
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <p class="otg-note">ChatGPTのChatへの制作指示1回のみで完成した状態を、そのまま公開しています。</p>
+        </div>
     </section>
 
     <section class="otg-about" aria-labelledby="rule-title">
@@ -446,7 +504,7 @@
             const doc = frame.contentDocument;
             if (!doc) return;
 
-            const startButton = doc.querySelector('#startButton, #start-button, #action');
+            const startButton = doc.querySelector('#startButton, #start-button, #start, #action');
             if (!startButton) return;
 
             startButton.click();
