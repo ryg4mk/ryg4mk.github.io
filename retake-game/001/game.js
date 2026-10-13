@@ -30,6 +30,20 @@
     { id: 'yarn', type: 'yarn', name: '毛糸玉', target: 2 },
     { id: 'duck', type: 'duck', name: 'アヒルのおもちゃ', target: 2 }
   ];
+  const ITEM_EMOJI = {
+    can: '🥫',
+    paper: '📄',
+    bottle: '🧴',
+    banana: '🍌',
+    sock: '🧦',
+    towel: '🧻',
+    shirt: '👕',
+    pants: '👖',
+    ball: '⚽',
+    mouse: '🐭',
+    yarn: '🧶',
+    duck: '🦆'
+  };
   const BIN_SLOTS = [65, 180, 295];
   const bins = [0, 1, 2].map((id) => ({ id, x: BIN_SLOTS[id], y: 115, shake: -Infinity, flash: -Infinity, cooldown: 0 }));
 
@@ -370,120 +384,26 @@
   }
 
   function drawItem(type, x, y, scale = 1, shadow = true) {
-    ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
-    if (shadow) ellipse(1, 21, type === 'towel' ? 24 : 19, 5, C.shadow);
-    if (type === 'can') {
-      ctx.rotate(-0.15);
-      roundRect(-13, -20, 26, 40, 5, C.red);
-      path(() => { ctx.moveTo(-12, -6); ctx.bezierCurveTo(-4, -12, 3, 8, 12, 1); ctx.lineTo(12, 8); ctx.bezierCurveTo(3, 15, -4, -4, -12, 1); ctx.closePath(); }, C.white, null);
-      roundRect(-13, 15, 26, 6, 3, '#C6C7BD', C.ink, 2);
-      ellipse(0, -19, 13, 4, '#C6C7BD', C.ink, 2);
-      ellipse(1, -19, 4, 1.6, '#7C8585');
-    } else if (type === 'paper') {
-      path(() => { ctx.moveTo(-18, -7); ctx.lineTo(-10, -17); ctx.lineTo(1, -20); ctx.lineTo(15, -11); ctx.lineTo(20, 2); ctx.lineTo(13, 16); ctx.lineTo(-2, 19); ctx.lineTo(-17, 10); ctx.lineTo(-21, 0); ctx.closePath(); }, '#EEE8DA');
-      line([[-10, -16], [-5, -6], [-12, 1], [-6, 10]], '#B8B4A8', 1.8);
-      line([[14, -10], [3, -6], [8, 4], [1, 12], [12, 16]], '#B8B4A8', 1.8);
-      line([[-5, -6], [3, -6]], '#B8B4A8', 1.8);
-    } else if (type === 'sock') {
-      ctx.rotate(0.2);
-      path(() => { ctx.moveTo(-5, -24); ctx.lineTo(14, -24); ctx.lineTo(14, 9); ctx.quadraticCurveTo(13, 20, 1, 23); ctx.lineTo(-17, 23); ctx.quadraticCurveTo(-29, 21, -24, 11); ctx.lineTo(-5, 3); ctx.closePath(); }, C.white);
-      path(() => { ctx.moveTo(-20, 10); ctx.quadraticCurveTo(-11, 14, -13, 23); ctx.lineTo(-19, 23); ctx.quadraticCurveTo(-30, 19, -24, 12); ctx.closePath(); }, C.blue, null);
-      path(() => { ctx.moveTo(5, 6); ctx.lineTo(13, 5); ctx.quadraticCurveTo(14, 15, 5, 19); ctx.quadraticCurveTo(1, 14, 5, 6); }, C.blue, null);
-      line([[-3, -17], [12, -17]], C.blue, 3);
-      line([[-3, -12], [12, -12]], C.blue, 2);
-    } else if (type === 'towel') {
-      ctx.rotate(-0.1);
-      roundRect(-23, -15, 46, 34, 5, '#709EAE');
-      roundRect(-23, -19, 46, 31, 5, '#8EB9C7');
-      line([[-15, -16], [-15, 9]], '#C6DFDF', 2.5);
-      line([[14, -16], [14, 9]], '#C6DFDF', 2.5);
-      line([[-17, 16], [17, 16]], '#B6D2D7', 1.6);
-    } else if (type === 'ball') {
-      ellipse(0, 0, 20, 20, C.yellow);
-      ctx.save(); ctx.beginPath(); ctx.arc(0, 0, 20, 0, Math.PI * 2); ctx.clip();
-      path(() => { ctx.moveTo(-21, -20); ctx.lineTo(6, -20); ctx.bezierCurveTo(-6, -8, -6, 8, 4, 21); ctx.lineTo(-21, 21); ctx.closePath(); }, '#C95E55', C.ink, 1.8);
-      path(() => { ctx.moveTo(12, -21); ctx.bezierCurveTo(0, -6, 12, 4, 21, 5); ctx.lineTo(24, -21); ctx.closePath(); }, '#668EA8', C.ink, 1.8);
-      ctx.restore(); ellipse(0, 0, 20, 20, null, C.ink);
-    } else if (type === 'mouse') {
-      path(() => { ctx.moveTo(15, 7); ctx.bezierCurveTo(36, 21, 36, -7, 23, -2); }, null, C.ink, 4.5);
-      path(() => { ctx.moveTo(15, 7); ctx.bezierCurveTo(36, 21, 36, -7, 23, -2); }, null, '#D28D94', 2.5);
-      path(() => { ctx.moveTo(-22, 8); ctx.bezierCurveTo(-18, -9, -5, -17, 7, -12); ctx.bezierCurveTo(25, -8, 23, 14, 8, 16); ctx.quadraticCurveTo(-10, 18, -22, 8); ctx.closePath(); }, '#858181');
-      ellipse(-4, -10, 8, 9, '#D28D94', C.ink, 2);
-      ellipse(-4, -10, 4, 5, '#E8B4B4');
-      ellipse(-13, 2, 2, 2, C.ink);
-      ellipse(-22, 8, 2.8, 2.8, C.pink, C.ink, 1.5);
-    } else if (type === 'bottle') {
-      ctx.rotate(0.08);
-      roundRect(-10, -18, 20, 35, 6, '#A8D7DD');
-      roundRect(-7, -26, 14, 10, 3, '#D9EEF0');
-      roundRect(-8, -29, 16, 5, 2, C.blue);
-      line([[-7, -5], [7, -5]], '#6E98B5', 2);
-      line([[-7, 7], [7, 7]], '#6E98B5', 2);
-    } else if (type === 'banana') {
-      ctx.rotate(-0.08);
-      path(() => {
-        ctx.moveTo(-2, 2);
-        ctx.bezierCurveTo(-18, -3, -25, -15, -17, -24);
-        ctx.bezierCurveTo(-10, -15, -8, -7, -2, 2);
-        ctx.closePath();
-      }, '#F2C94C');
-      path(() => {
-        ctx.moveTo(0, 2);
-        ctx.bezierCurveTo(10, -9, 15, -17, 13, -27);
-        ctx.bezierCurveTo(23, -20, 24, -6, 3, 5);
-        ctx.closePath();
-      }, '#F7D86E');
-      path(() => {
-        ctx.moveTo(1, 4);
-        ctx.bezierCurveTo(9, 10, 15, 16, 19, 24);
-        ctx.bezierCurveTo(8, 26, -3, 15, -3, 5);
-        ctx.closePath();
-      }, '#E7B93D');
-      ellipse(-1, 3, 4, 4, '#8A6C2E', C.ink, 1.2);
-    } else if (type === 'shirt') {
-      path(() => { ctx.moveTo(-10, -20); ctx.lineTo(-24, -11); ctx.lineTo(-17, 2); ctx.lineTo(-10, -3); ctx.lineTo(-10, 21); ctx.lineTo(12, 21); ctx.lineTo(12, -3); ctx.lineTo(20, 2); ctx.lineTo(27, -11); ctx.lineTo(11, -20); ctx.quadraticCurveTo(1, -10, -10, -20); ctx.closePath(); }, '#E6A0A0');
-      line([[-3, -15], [4, -8], [11, -15]], '#F5EFE4', 2);
-    } else if (type === 'pants') {
-      ctx.rotate(0.04);
-      path(() => {
-        ctx.moveTo(-17, -22);
-        ctx.lineTo(17, -22);
-        ctx.lineTo(15, 1);
-        ctx.lineTo(23, 24);
-        ctx.lineTo(8, 24);
-        ctx.lineTo(0, 6);
-        ctx.lineTo(-8, 24);
-        ctx.lineTo(-23, 24);
-        ctx.lineTo(-15, 1);
-        ctx.closePath();
-      }, '#6F86B8');
-      roundRect(-18, -25, 36, 7, 3, '#526A9E');
-      line([[0, -20], [0, 5]], '#E7EAF2', 1.5);
-      line([[-11, -9], [-4, -4]], '#9FB0D6', 1.4);
-      line([[11, -9], [4, -4]], '#9FB0D6', 1.4);
-    } else if (type === 'yarn') {
-      ellipse(0, 1, 20, 19, '#D98A9A', C.ink, 2);
-      path(() => { ctx.arc(0, 0, 13, -1.2, 1.8); }, null, '#F2BBC4', 2);
-      path(() => { ctx.arc(-3, 1, 9, 1.2, 4.6); }, null, '#A95F72', 2);
-      path(() => { ctx.moveTo(14, 14); ctx.bezierCurveTo(27, 18, 27, 27, 17, 29); }, null, '#A95F72', 2);
-    } else if (type === 'duck') {
-      ellipse(0, 4, 19, 15, '#F4C84B', C.ink, 2);
-      ellipse(-8, -11, 12, 11, '#F7D85F', C.ink, 2);
-      path(() => {
-        ctx.moveTo(-20, -10);
-        ctx.lineTo(-30, -5);
-        ctx.lineTo(-20, 0);
-        ctx.closePath();
-      }, '#E8903A');
-      ellipse(-11, -13, 2, 2, C.ink);
-      path(() => {
-        ctx.moveTo(7, 3);
-        ctx.quadraticCurveTo(17, -2, 20, 7);
-        ctx.quadraticCurveTo(12, 10, 7, 3);
-      }, '#E8B53A', null);
-      line([[-8, 18], [-8, 24]], '#D68632', 2);
-      line([[7, 18], [7, 24]], '#D68632', 2);
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+
+    const emoji = ITEM_EMOJI[type] || '❓';
+
+    // RETAKE readability: no ground shadow for loose items.
+    // Only a very soft contact shadow while the item is being held.
+    if (shadow && held?.item?.type === type) {
+      ctx.save();
+      ctx.globalAlpha = 0.14;
+      ellipse(0, 23, 17, 4, C.ink, null);
+      ctx.restore();
     }
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '44px "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Emoji", sans-serif';
+    ctx.fillText(emoji, 0, 0);
+
     ctx.restore();
   }
 
@@ -577,14 +497,14 @@
     });
     if (held) {
       const pos = heldPosition(now);
-      drawItem(held.item.type, pos.x, pos.y - 3, 1.08, true);
+      drawItem(held.item.type, pos.x, pos.y - 5, 1.12, true);
     }
     effects.forEach(effect => {
       const age = now - effect.at;
       if (effect.kind === 'put') {
         const p = clamp(age / 220, 0, 1);
         ctx.globalAlpha = 1 - p;
-        drawItem(effect.item.type, effect.x + (effect.toX - effect.x) * p, effect.y + (effect.toY - effect.y) * p, 1.08 - p * 0.72, false);
+        drawItem(effect.item.type, effect.x + (effect.toX - effect.x) * p, effect.y + (effect.toY - effect.y) * p, 1.12 - p * 0.72, false);
         ctx.globalAlpha = 1;
         const sparkleP = clamp(age / 500, 0, 1);
         ctx.save();
