@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RETAKE GAME。一発で作ったゲームを、今度はちゃんと磨く。ONE TAKE GAMEの作品を順番にブラッシュアップして公開しています。">
+  <meta name="theme-color" content="#f8f6ff">
+  <title>RETAKE GAME | BananaKumaGames</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/one-take-game.css">
+  <link rel="stylesheet" href="../css/retake-game.css">
+</head>
+<body class="otg-page rtg-page">
+  <header class="otg-header">
+    <a class="otg-home-link" href="../" aria-label="BananaKumaGamesトップへ戻る">
+      <span aria-hidden="true">←</span>
+      <span>BananaKumaGames</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="otg-hero" aria-labelledby="rtg-title">
+      <p class="otg-kicker">リテイクゲーム</p>
+      <h1 id="rtg-title">RE<span>TAKE</span> GAME</h1>
+      <p class="otg-tagline">一発で作ったゲームを、今度はちゃんと磨く。</p>
+      <p class="otg-intro">
+        ONE TAKE GAMEで完成した作品を、#001から順番にブラッシュアップ。
+        元版はそのまま残し、遊びやすさ・ランダム性・演出などを見直した改良版を別作品として公開します。
+      </p>
+      <p class="otg-rule-line">ORIGINAL STAYS · RETAKE EVOLVES</p>
+    </section>
+
+    <section class="otg-list" aria-labelledby="games-title">
+      <div class="otg-section-heading">
+        <p class="otg-kicker">RETAKES</p>
+        <h2 id="games-title">ブラッシュアップ作品</h2>
+      </div>
+
+      <article class="otg-game-card">
+        <div class="otg-preview">
+          <div class="otg-preview-label">LIVE PREVIEW</div>
+          <iframe
+            src="./001/"
+            title="猫の手も借りたい RETAKE #001 ゲーム画面プレビュー"
+            loading="lazy"
+            tabindex="-1"
+            aria-hidden="true"
+          ></iframe>
+        </div>
+
+        <div class="otg-game-content">
+          <p class="otg-number">RETAKE #001</p>
+          <h2>猫の手も借りたい</h2>
+          <p class="otg-description">
+            猫の両手で6個の物を正しい場所へ片付けるタイムアタックを、毎回遊び直せる形にブラッシュアップ。
+            物・配置・収納場所の並びが変わり、触った時と片付けた時の演出も強化しました。
+          </p>
+
+          <div class="rtg-points">
+            <strong>RETAKE POINTS</strong>
+            <p>物の初期位置をランダム化 / 12種類から6個を選出 / 収納場所の並びをランダム化 / つかみ・収納・クリア演出を強化</p>
+          </div>
+
+          <dl class="otg-facts">
+            <div>
+              <dt>ORIGINAL</dt>
+              <dd>ONE TAKE #001</dd>
+            </div>
+            <div>
+              <dt>DIFFICULTY</dt>
+              <dd>1 TYPE</dd>
+            </div>
+          </dl>
+
+          <a class="otg-play-button" href="./001/">
+            PLAY RETAKE
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <a class="rtg-original-link" href="../one-take-game/">
+            ONE TAKE版を見る
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <section class="otg-about" aria-labelledby="about-title">
+      <p class="otg-kicker">THE IDEA</p>
+      <h2 id="about-title">元版は消さない。</h2>
+      <p>
+        ONE TAKE GAMEは「1回の制作指示でどこまで作れたか」の記録としてそのまま公開。
+        RETAKE GAMEでは、その結果を出発点にして、実際に遊びながら完成度を上げていきます。
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 BananaKumaGames</p>
+    <p><a class="otg-footer-link" href="../">トップページへ戻る</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const frame = document.querySelector('.otg-preview iframe');
+      if (!frame) return;
+      const tryStart = () => {
+        try {
+          const button = frame.contentDocument?.querySelector('#action');
+          if (button) button.click();
+        } catch (_) {}
+      };
+      frame.addEventListener('load', () => setTimeout(tryStart, 250), { once: true });
+    })();
+  </script>
+</body>
+</html>
