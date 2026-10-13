@@ -20,15 +20,15 @@
     { id: 'can', type: 'can', name: '空き缶', target: 0 },
     { id: 'paper', type: 'paper', name: '丸めた紙', target: 0 },
     { id: 'bottle', type: 'bottle', name: 'ペットボトル', target: 0 },
-    { id: 'tissue', type: 'tissue', name: '使ったティッシュ', target: 0 },
+    { id: 'banana', type: 'banana', name: 'バナナの皮', target: 0 },
     { id: 'sock', type: 'sock', name: '靴下', target: 1 },
     { id: 'towel', type: 'towel', name: 'ハンドタオル', target: 1 },
     { id: 'shirt', type: 'shirt', name: 'Tシャツ', target: 1 },
-    { id: 'scarf', type: 'scarf', name: 'スカーフ', target: 1 },
+    { id: 'pants', type: 'pants', name: 'ズボン', target: 1 },
     { id: 'ball', type: 'ball', name: 'ボール', target: 2 },
     { id: 'mouse', type: 'mouse', name: 'ねずみのおもちゃ', target: 2 },
     { id: 'yarn', type: 'yarn', name: '毛糸玉', target: 2 },
-    { id: 'feather', type: 'feather', name: '羽根のおもちゃ', target: 2 }
+    { id: 'duck', type: 'duck', name: 'アヒルのおもちゃ', target: 2 }
   ];
   const BIN_SLOTS = [65, 180, 295];
   const bins = [0, 1, 2].map((id) => ({ id, x: BIN_SLOTS[id], y: 115, shake: -Infinity, flash: -Infinity, cooldown: 0 }));
@@ -364,6 +364,8 @@
       path(() => { ctx.moveTo(-10, -2); ctx.quadraticCurveTo(0, 6, 10, 14); }, null, C.ink, 1.8);
       path(() => { ctx.moveTo(9, -3); ctx.quadraticCurveTo(-1, 4, -8, 16); }, null, C.ink, 1.8);
     }
+    const binLabel = bin.id === 0 ? 'ゴミ' : bin.id === 1 ? 'せんたく' : 'おもちゃ';
+    text(binLabel, 0, 52, 11, C.muted, 800);
     ctx.restore();
   }
 
@@ -417,28 +419,70 @@
       roundRect(-8, -29, 16, 5, 2, C.blue);
       line([[-7, -5], [7, -5]], '#6E98B5', 2);
       line([[-7, 7], [7, 7]], '#6E98B5', 2);
-    } else if (type === 'tissue') {
-      path(() => { ctx.moveTo(-19, 7); ctx.quadraticCurveTo(-14, -18, -3, -10); ctx.quadraticCurveTo(5, -22, 11, -8); ctx.quadraticCurveTo(24, -4, 16, 13); ctx.quadraticCurveTo(2, 21, -19, 7); ctx.closePath(); }, '#F8F4EB');
-      line([[-12, 4], [4, -4], [13, 7]], '#C9C2B6', 1.5);
+    } else if (type === 'banana') {
+      ctx.rotate(-0.08);
+      path(() => {
+        ctx.moveTo(-2, 2);
+        ctx.bezierCurveTo(-18, -3, -25, -15, -17, -24);
+        ctx.bezierCurveTo(-10, -15, -8, -7, -2, 2);
+        ctx.closePath();
+      }, '#F2C94C');
+      path(() => {
+        ctx.moveTo(0, 2);
+        ctx.bezierCurveTo(10, -9, 15, -17, 13, -27);
+        ctx.bezierCurveTo(23, -20, 24, -6, 3, 5);
+        ctx.closePath();
+      }, '#F7D86E');
+      path(() => {
+        ctx.moveTo(1, 4);
+        ctx.bezierCurveTo(9, 10, 15, 16, 19, 24);
+        ctx.bezierCurveTo(8, 26, -3, 15, -3, 5);
+        ctx.closePath();
+      }, '#E7B93D');
+      ellipse(-1, 3, 4, 4, '#8A6C2E', C.ink, 1.2);
     } else if (type === 'shirt') {
       path(() => { ctx.moveTo(-10, -20); ctx.lineTo(-24, -11); ctx.lineTo(-17, 2); ctx.lineTo(-10, -3); ctx.lineTo(-10, 21); ctx.lineTo(12, 21); ctx.lineTo(12, -3); ctx.lineTo(20, 2); ctx.lineTo(27, -11); ctx.lineTo(11, -20); ctx.quadraticCurveTo(1, -10, -10, -20); ctx.closePath(); }, '#E6A0A0');
       line([[-3, -15], [4, -8], [11, -15]], '#F5EFE4', 2);
-    } else if (type === 'scarf') {
-      ctx.rotate(-0.18);
-      roundRect(-22, -7, 44, 14, 6, '#9E89C9');
-      roundRect(7, -1, 11, 30, 5, '#B7A4DD');
-      for (let y = 21; y <= 28; y += 4) line([[9, y], [5, y + 4]], '#7B68A7', 1.2);
+    } else if (type === 'pants') {
+      ctx.rotate(0.04);
+      path(() => {
+        ctx.moveTo(-17, -22);
+        ctx.lineTo(17, -22);
+        ctx.lineTo(15, 1);
+        ctx.lineTo(23, 24);
+        ctx.lineTo(8, 24);
+        ctx.lineTo(0, 6);
+        ctx.lineTo(-8, 24);
+        ctx.lineTo(-23, 24);
+        ctx.lineTo(-15, 1);
+        ctx.closePath();
+      }, '#6F86B8');
+      roundRect(-18, -25, 36, 7, 3, '#526A9E');
+      line([[0, -20], [0, 5]], '#E7EAF2', 1.5);
+      line([[-11, -9], [-4, -4]], '#9FB0D6', 1.4);
+      line([[11, -9], [4, -4]], '#9FB0D6', 1.4);
     } else if (type === 'yarn') {
       ellipse(0, 1, 20, 19, '#D98A9A', C.ink, 2);
       path(() => { ctx.arc(0, 0, 13, -1.2, 1.8); }, null, '#F2BBC4', 2);
       path(() => { ctx.arc(-3, 1, 9, 1.2, 4.6); }, null, '#A95F72', 2);
       path(() => { ctx.moveTo(14, 14); ctx.bezierCurveTo(27, 18, 27, 27, 17, 29); }, null, '#A95F72', 2);
-    } else if (type === 'feather') {
-      ctx.rotate(0.3);
-      path(() => { ctx.moveTo(-2, 22); ctx.quadraticCurveTo(-18, 1, -8, -24); ctx.quadraticCurveTo(13, -17, 10, 4); ctx.quadraticCurveTo(5, 16, -2, 22); ctx.closePath(); }, '#78A8C1');
-      line([[-2, 22], [2, -18]], C.ink, 1.8);
-      line([[1, -10], [-8, -5]], '#D7E8EF', 1.5);
-      line([[1, -2], [8, 2]], '#D7E8EF', 1.5);
+    } else if (type === 'duck') {
+      ellipse(0, 4, 19, 15, '#F4C84B', C.ink, 2);
+      ellipse(-8, -11, 12, 11, '#F7D85F', C.ink, 2);
+      path(() => {
+        ctx.moveTo(-20, -10);
+        ctx.lineTo(-30, -5);
+        ctx.lineTo(-20, 0);
+        ctx.closePath();
+      }, '#E8903A');
+      ellipse(-11, -13, 2, 2, C.ink);
+      path(() => {
+        ctx.moveTo(7, 3);
+        ctx.quadraticCurveTo(17, -2, 20, 7);
+        ctx.quadraticCurveTo(12, 10, 7, 3);
+      }, '#E8B53A', null);
+      line([[-8, 18], [-8, 24]], '#D68632', 2);
+      line([[7, 18], [7, 24]], '#D68632', 2);
     }
     ctx.restore();
   }
