@@ -1,0 +1,54 @@
+
+.rtg-page {
+  background: #f8f6ff;
+}
+.rtg-page .otg-home-link {
+  background: #ffffff;
+}
+.rtg-page .otg-hero h1 span,
+.rtg-page .otg-number,
+.rtg-page .otg-kicker,
+.rtg-page .otg-rule-line {
+  color: #7658b8;
+}
+.rtg-page .otg-game-card {
+  background: #f8f4ff;
+  box-shadow: 10px 10px 0 #b8a7e6;
+}
+.rtg-page .otg-preview {
+  background: #e9e1f6;
+}
+.rtg-page .otg-play-button {
+  background: #7658b8;
+}
+.rtg-original-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 14px;
+  color: #5b4b7d;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.rtg-points {
+  margin: 22px 0 26px;
+  padding: 16px 18px;
+  background: #fff;
+  border: 2px solid rgba(63,56,46,.22);
+  border-radius: 16px;
+}
+.rtg-points strong {
+  display: block;
+  margin-bottom: 6px;
+}
+.rtg-points p {
+  margin: 0;
+  color: var(--muted);
+}
+@media (max-width: 760px) {
+  .rtg-page .otg-game-card {
+    box-shadow: 7px 7px 0 #b8a7e6;
+  }
+}
