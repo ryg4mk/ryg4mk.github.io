@@ -556,6 +556,59 @@
               }
             }
 
+            if (frame.src.includes('/cat-by-nyalight/')) {
+              const soundButton = doc.querySelector('#sound');
+              if (soundButton && soundButton.textContent.includes('ON')) {
+                const storage = frame.contentWindow.localStorage;
+                const key = 'catnyalight-muted';
+                const previous = storage.getItem(key);
+                soundButton.click();
+                if (previous === null) storage.removeItem(key);
+                else storage.setItem(key, previous);
+              }
+            }
+
+            if (frame.src.includes('/neko-punch-dojo/')) {
+              const win = frame.contentWindow;
+              const RealAudioContext = win.AudioContext;
+              const RealWebkitAudioContext = win.webkitAudioContext;
+
+              class SilentAudioContext {
+                constructor() {
+                  this.state = 'running';
+                  this.currentTime = 0;
+                  this.destination = {};
+                }
+                resume() { return Promise.resolve(); }
+                createOscillator() {
+                  return {
+                    type: 'sine',
+                    frequency: { setValueAtTime() {} },
+                    connect() {},
+                    start() {},
+                    stop() {}
+                  };
+                }
+                createGain() {
+                  return {
+                    gain: {
+                      setValueAtTime() {},
+                      exponentialRampToValueAtTime() {}
+                    },
+                    connect() {}
+                  };
+                }
+              }
+
+              win.AudioContext = SilentAudioContext;
+              win.webkitAudioContext = SilentAudioContext;
+              startButton.click();
+              win.AudioContext = RealAudioContext;
+              win.webkitAudioContext = RealWebkitAudioContext;
+              started.add(frame);
+              return;
+            }
+
             startButton.click();
             started.add(frame);
           } catch (_) {
