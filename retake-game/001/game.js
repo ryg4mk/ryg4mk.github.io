@@ -390,15 +390,6 @@
 
     const emoji = ITEM_EMOJI[type] || '❓';
 
-    // RETAKE readability: no ground shadow for loose items.
-    // Only a very soft contact shadow while the item is being held.
-    if (shadow && held?.item?.type === type) {
-      ctx.save();
-      ctx.globalAlpha = 0.14;
-      ellipse(0, 23, 17, 4, C.ink, null);
-      ctx.restore();
-    }
-
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.font = '44px "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Emoji", sans-serif';
@@ -497,7 +488,7 @@
     });
     if (held) {
       const pos = heldPosition(now);
-      drawItem(held.item.type, pos.x, pos.y - 5, 1.12, true);
+      drawItem(held.item.type, pos.x, pos.y - 5, 1.12, false);
     }
     effects.forEach(effect => {
       const age = now - effect.at;
