@@ -235,7 +235,6 @@
       if (item) {
         held = { item, caughtAt: now, fromX: item.x, fromY: item.y };
         tone(560, 0.045, 0.024, 'triangle');
-        effects.push({ kind: 'pickup', x: item.x, y: item.y, at: now });
         announce(`${item.name}をつかみました。`);
       }
       return;
@@ -505,11 +504,6 @@
           const r = 12 + sparkleP * 28;
           ellipse(effect.toX + Math.cos(a) * r, effect.toY + Math.sin(a) * r, 2.6, 2.6, i % 2 ? C.yellow : C.white);
         }
-        ctx.restore();
-      } else if (effect.kind === 'pickup') {
-        const p = clamp(age / 260, 0, 1);
-        ctx.save(); ctx.globalAlpha = 1 - p;
-        ellipse(effect.x, effect.y + 20 + p * 6, 22 - p * 7, 5 - p * 2, C.shadow);
         ctx.restore();
       }
     });
