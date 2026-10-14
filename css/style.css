@@ -532,3 +532,131 @@ footer p {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Roo's Workshop homepage theme */
+.home-page {
+  --ink: #30334f;
+  --muted: #626785;
+  --cream: #f6f7fc;
+  --white: #ffffff;
+  --banana: #b8c0f2;
+  --banana-dark: #7078b9;
+  --mint: #dce2f8;
+  --green: #737fbd;
+  --coral: #c7aabd;
+  --sky: #cbdaf4;
+  --purple: #8f91cf;
+  --shadow: 0 14px 34px rgba(69, 73, 117, 0.11);
+  background: #f6f7fc;
+  color: #30334f;
+}
+
+.home-page .site-header {
+  background: rgba(246, 247, 252, 0.94);
+  border-bottom-color: rgba(143, 145, 207, 0.3);
+}
+
+.home-page .brand-mark {
+  color: #ffffff;
+  background: linear-gradient(145deg, #cbd1f7, #9da7df);
+  border-color: #454966;
+  box-shadow: 3px 3px 0 #454966;
+}
+
+.home-page nav a:hover {
+  background: #e7e9f8;
+}
+
+.home-page .eyebrow,
+.home-page .app-number {
+  color: #7479b8;
+}
+
+.home-page .primary-button,
+.home-page .email-link {
+  background: #b8c0f2;
+  border-color: #454966;
+  box-shadow: 4px 4px 0 #454966;
+}
+
+.home-page .hero {
+  gap: 38px;
+}
+
+.home-page .hero-image {
+  border-color: #555a7b;
+  box-shadow: 12px 12px 0 #c5caf0;
+}
+
+.home-page .apps-section {
+  background: #fbfbfe;
+  border-block-color: #e2e4f2;
+}
+
+.home-page .app-card {
+  background: #f8f8fd;
+  border-color: #555a73;
+}
+
+.home-page .app-icon-wrap {
+  background: #e9ebf8;
+  border-color: #555a73;
+}
+
+.home-page .app-icon {
+  background: #eef0f8;
+  border-color: rgba(69, 73, 102, 0.18);
+  box-shadow: 6px 6px 0 rgba(69, 73, 102, 0.13);
+}
+
+.home-page .store-link {
+  background: #747fbd;
+  border-color: #454966;
+  box-shadow: 3px 3px 0 #454966;
+}
+
+.home-page .policy-link {
+  border-color: #555a73;
+  box-shadow: 3px 3px 0 #555a73;
+}
+
+.home-page .contact-card {
+  background: #e9ebf8;
+  border-color: #555a73;
+  box-shadow: 10px 10px 0 #c5caf0;
+}
+
+.home-page .contact-icon {
+  border-color: #555a73;
+  background: #ffffff;
+}
+
+.home-page footer {
+  background: #30334f;
+}
+
+.home-page :focus-visible {
+  outline-color: #747fbd;
+}
+
+@media (max-width: 900px) {
+  .home-page .hero-image {
+    box-shadow: 8px 8px 0 #c5caf0;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-page .brand {
+    gap: 7px;
+    font-size: 0.98rem;
+  }
+
+  .home-page .hero {
+    gap: 32px;
+  }
+
+  .home-page .hero-image {
+    box-shadow: 6px 6px 0 #c5caf0;
+  }
+}
