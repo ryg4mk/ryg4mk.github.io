@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/one-take-game.css">
   <link rel="stylesheet" href="../css/retake-game.css">
+  <script src="./social.js" defer></script>
 </head>
 <body class="otg-page rtg-page">
   <header class="otg-header">
@@ -36,7 +37,7 @@
         <h2 id="games-title">ブラッシュアップ作品</h2>
       </div>
 
-      <article class="otg-game-card">
+      <article class="otg-game-card" data-game-id="001">
         <div class="otg-preview">
           <div class="otg-preview-label">LIVE PREVIEW</div>
           <iframe
@@ -57,8 +58,8 @@
           </p>
 
           <div class="rtg-points">
-            <strong>RETAKE POINTS</strong>
-            <p>物の初期位置をランダム化 / 12種類から6個を選出 / 収納場所の並びをランダム化 / つかみ・収納・クリア演出を強化</p>
+            <strong>ONE TAKE版からの変更点</strong>
+            <p>毎回同じ6個・同じ配置だった構成を、12種類から6個を選ぶランダム制に変更。物の初期位置と収納場所の並びも毎回変わるようにし、アイテムを見分けやすい絵文字表示へ変更。収納時・クリア時の演出と効果音も追加しました。</p>
           </div>
 
           <dl class="otg-facts">
@@ -71,6 +72,18 @@
               <dd>1 TYPE</dd>
             </div>
           </dl>
+
+          <div class="otg-social" aria-label="このゲームの人気">
+            <div class="otg-stat" title="閲覧数">
+              <span class="otg-social-icon" aria-hidden="true">👁</span>
+              <span data-view-count>—</span>
+              <span class="otg-social-label">views</span>
+            </div>
+            <button class="otg-like-button" data-like-button type="button" aria-pressed="false" aria-label="このゲームにいいね">
+              <span class="otg-heart" aria-hidden="true">♥</span>
+              <span data-like-count>—</span>
+            </button>
+          </div>
 
           <a class="otg-play-button" href="./001/">
             PLAY RETAKE
