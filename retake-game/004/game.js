@@ -291,6 +291,8 @@
     dc.restore();
 
     car.hitFlash=.18;
+    if(car.player){playSound('wall');showToast(`DAMAGE! ${Math.ceil(car.integrity)}%`,.42);}
+    else if(attacker?.player){playSound('wall');showToast(`SMASH! ${Math.ceil(car.integrity)}%`,.42);}
     for(let i=0;i<7;i++) car.debris.push({
       x:car.x+rand(-5,5),y:car.y+rand(-5,5),
       vx:rand(-45,45),vy:rand(-45,45),life:rand(.28,.55),color:car.color
@@ -538,7 +540,8 @@
       let car=ranking[i],div=document.createElement('div');div.className='rank-item'+(car.player?' is-player':'');
       const num=document.createElement('span');num.className='rank-num';num.textContent=`${i+1}`;
       const glyph=document.createElement('span');glyph.className='rank-char';glyph.style.color=car.color;glyph.textContent=car.char;
-      const ident=document.createElement('small');ident.textContent=car.player?'YOU':`CPU ${car.index}`;
+      const ident=document.createElement('small');
+      ident.textContent=`${car.player?'YOU':`CPU ${car.index}`} ${Math.ceil(car.integrity)}%`;
       div.append(num,glyph,ident);dom.standings.appendChild(div);
     }
     dom.boost.classList.toggle('active',player.spinTimer>0);
@@ -724,7 +727,7 @@
     window.addEventListener('keydown',e=>{
       if(state.phase!=='racing'||e.repeat)return;
       if(e.code==='Space'||(e.code==='Enter'&&document.activeElement?.tagName!=='BUTTON')){
-        e.preventDefault();boost();
+        e.preventDefault();spinAttack();
       }
     });
     window.addEventListener('resize',()=>{if(state.phase==='title')paintPreview();});
