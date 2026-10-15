@@ -359,28 +359,10 @@
     return pointsOfAInsideB(a,b)||pointsOfAInsideB(b,a);
   }
   function carContacts(){
-    const cars=state.cars;
-    for(let i=0;i<cars.length;i++)for(let j=i+1;j<cars.length;j++){
-      const a=cars[i],b=cars[j];if(a.finished||b.finished)continue;
-      if(!sampleOverlap(a,b))continue;
-      state.carHits++;
-      const delta=a.offset-b.offset;
-      let sign=Math.sign(delta);
-      if(!sign)sign=a.index<b.index?-1:1;
-      const total=a.shape.weight+b.shape.weight+.25;
-      a.offset=clamp(a.offset+sign*1.7*(b.shape.weight+.15)/total,-29,29);
-      b.offset=clamp(b.offset-sign*1.7*(a.shape.weight+.15)/total,-29,29);
-      // RETAKE: contact should not turn the front car into a moving wall.
-      // Keep momentum and gently help the faster/rear car move to an overtaking line.
-      const rear=a.progress>=b.progress?b:a;
-      const front=rear===a?b:a;
-      const passSign=rear.offset<=front.offset?-1:1;
-      rear.offset=clamp(rear.offset+passSign*4.2,-29,29);
-      front.offset=clamp(front.offset-passSign*1.2,-29,29);
-      rear.velocity=Math.max(rear.velocity,front.velocity+5);
-      if(a.coolCar<=0)a.coolCar=.18;if(b.coolCar<=0)b.coolCar=.18;
-      positionCar(a);positionCar(b);
-    }
+    // RETAKE: racers do not collide with each other.
+    // Cars may overlap visually and pass straight through one another so overtaking
+    // is determined by speed and racing line, never by physical blocking.
+    return;
   }
   function finishCar(c){
     c.finished=true;c.finishTime=state.elapsed;c.finishStamp=state.elapsed;
@@ -668,7 +650,7 @@
     setCourse:(i)=>{selectedCourse=clamp(i,0,COURSES.length-1);dom.hint.textContent=`COURSE ${COURSES[selectedCourse].id} · ${COURSES[selectedCourse].name}`;},
     inspectGlyph:char=>{const s=buildShape(char);return{char:s.char,width:s.bodyW,height:s.bodyH,area:s.area,
       symmetry:s.symmetry,complexity:s.complexity,stats:{speed:s.speed,accel:s.accel,stability:s.stability,weight:s.weight},edge:s.contour.length};},
-    intersects:()=>{const c=state.cars;return c.length>1?sampleOverlap(c[0],c[1]):false;},
+    intersects:()=>false,
     pathLength:()=>state.track?.length,
     key:savedKey
   };
