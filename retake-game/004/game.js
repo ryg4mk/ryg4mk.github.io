@@ -18,15 +18,15 @@
     {id:'A',name:'スピード',road:91,turns:[
       [207,498],[306,478],[351,421],[342,349],[306,303],[342,247],[329,161],
       [266,91],[160,90],[95,151],[107,245],[80,314],[85,406],[135,477]
-    ],pads:[{at:.20,type:'speed'},{at:.44,type:'speed'},{at:.71,type:'speed'}]},
+    ],pads:[]},
     {id:'B',name:'コーナー',road:91,turns:[
       [221,499],[312,468],[350,405],[314,345],[290,299],[349,236],[319,156],
       [248,84],[149,108],[77,177],[133,253],[77,327],[91,415],[153,490]
-    ],pads:[{at:.15,type:'speed'},{at:.36,type:'speed'},{at:.64,type:'speed'},{at:.82,type:'speed'}]},
+    ],pads:[]},
     {id:'C',name:'バランス',road:90,turns:[
       [199,493],[285,490],[342,449],[340,361],[311,286],[350,220],[313,131],
       [243,89],[167,99],[87,165],[103,265],[73,364],[98,444],[153,494]
-    ],pads:[{at:.24,type:'speed'},{at:.52,type:'speed'},{at:.76,type:'speed'}]}
+    ],pads:[]}
   ];
   const dom={
     title:$('titleScreen'),race:$('raceScreen'),result:$('resultScreen'),
@@ -119,8 +119,11 @@
     const stability=clamp(.49+.24*aspect+.16*(symmetry-.5)-.18*centerBias-.06*complexity,.21,.83);
     const speed=clamp(.54+.12*(.55-weight)+.09*aspect+.03*(symmetry-.5),.34,.76);
     const accel=clamp(.56+.25*(.54-weight)-.045*complexity,.35,.79);
+    // RETAKE: TURBO rewards lighter, cleaner shapes while remaining independent
+    // enough from SPEED to give different glyphs distinct racing personalities.
+    const turbo=clamp(.38+.34*(1-weight)+.18*(1-complexity)+.10*centerBias,.36,.88);
     const shape={char,bitmap,alpha,w,h,bodyW,bodyH,area:count,areaNorm,
-      weight,stability,speed,accel,coverage,symmetry,complexity,centerBias,
+      weight,stability,speed,accel,turbo,coverage,symmetry,complexity,centerBias,
       contour:pick(allEdge,88),sample:pick(allFill,88),colors:new Map()};
     shapeCache.set(char,shape);
     return shape;
@@ -196,7 +199,7 @@
     dom.stats.innerHTML='';
     if(!currentGlyph)return;
     const stats=[['SPEED',currentGlyph.speed],['ACCEL',currentGlyph.accel],
-      ['STABILITY',currentGlyph.stability],['WEIGHT',currentGlyph.weight]];
+      ['STABILITY',currentGlyph.stability],['TURBO',currentGlyph.turbo]];
     for(const [name,n] of stats){const el=document.createElement('div');el.className='stat';
       const span=document.createElement('span');span.textContent=name;
       const bars=document.createElement('div');bars.className='stat-bars';
@@ -268,7 +271,8 @@
     const c={char,color,player,index:cpuIndex,shape,progress,offset,velocity:0,
       lane:offset+rand(-2,2),seed:rand(0,TAU),skill:player?1:rand(.980,1.022),
       finishTime:null,finished:false,finishStamp:0,laps:0,lapTimes:[],lastLapTime:0,
-      boostTimer:0,padTimer:0,padKind:'',padEffect:'',coolWall:0,coolCar:0,trail:[],
+      boostTimer:0,boostLeft:3,cpuBoostMarks:player?[]:[rand(.18,.32),rand(1.05,1.28),rand(2.02,2.34)],
+      nextCpuBoost:0,padTimer:0,padKind:'',padEffect:'',coolWall:0,coolCar:0,trail:[],
       wobble:rand(.85,1.25),x:0,y:0,tx:1,ty:0,nx:0,ny:1,angle:0};
     positionCar(c);return c;
   }
@@ -305,7 +309,10 @@
     if(state.phase!=='racing'||state.boostLeft<=0)return;
     const p=state.cars.find(c=>c.player);
     if(!p||p.finished)return;
-    state.boostLeft--;p.boostTimer=2.05;p.velocity+=28;
+    state.boostLeft--;p.boostLeft=state.boostLeft;
+    const turbo=p.shape.turbo;
+    p.boostTimer=1.05+turbo*1.15;
+    p.velocity+=10+turbo*20;
     dom.boostCount.textContent=`× ${state.boostLeft}`;
     dom.boost.classList.add('active');playSound('boost');showToast('BOOST! ⚡',.72);
   }
@@ -330,7 +337,7 @@
       state.wallHits++;
       const excess=Math.abs(peak)-limit;
       c.offset-=Math.sign(peak)*Math.min(11,excess*.76+1.1);
-      if(c.coolWall<=0){c.velocity*=.945+.024*c.shape.stability;
+      if(c.coolWall<=0){
         if(c.player){playSound('wall');showToast('ガードレール！',.4);}
         c.coolWall=.42;
       }
@@ -375,10 +382,17 @@
     c.padTimer=Math.max(0,c.padTimer-dt);
     c.coolWall=Math.max(0,c.coolWall-dt);
     c.coolCar=Math.max(0,c.coolCar-dt);
-    const pad=padAt(state.track,c.progress);
-    if(pad){if(c.padKind!==pad){state.padHits[pad]++;c.padTimer=1.28;c.padKind=pad;c.padEffect=pad;
-      if(c.player){playSound('speed');showToast('SPEED UP!',.65);}
-    }}else c.padKind='';
+    // RETAKE: no course speed pads. Speed changes come from glyph performance and BOOST.
+    if(!c.player && state.phase==='racing' && c.boostLeft>0 && c.nextCpuBoost<c.cpuBoostMarks.length){
+      const lapProgress=c.progress/Math.max(1,state.track.length);
+      if(lapProgress>=c.cpuBoostMarks[c.nextCpuBoost]){
+        const turbo=c.shape.turbo;
+        c.boostLeft--;
+        c.nextCpuBoost++;
+        c.boostTimer=1.05+turbo*1.15;
+        c.velocity+=10+turbo*20;
+      }
+    }
     const curv=curveAt(state.track,c.progress);
     const stability=st.stability;
     const boosted=c.boostTimer>0;
@@ -386,8 +400,7 @@
     // not a large automatic speed penalty.
     const maxSpeed=(154+(st.speed-.5)*30)*c.skill;
     let target=maxSpeed;
-    if(c.padTimer>0)target*=1.20;
-    if(boosted)target*=1.62;
+    if(boosted)target*=1.25+st.turbo*.30;
     const acceleration=112+(st.accel-.5)*58;
     c.velocity=clamp(c.velocity+(target>c.velocity?acceleration:-acceleration*1.8)*dt,0,Math.max(target,c.velocity));
     if(c.velocity>target)c.velocity=Math.max(target,c.velocity-acceleration*1.8*dt);
@@ -649,7 +662,7 @@
     },
     setCourse:(i)=>{selectedCourse=clamp(i,0,COURSES.length-1);dom.hint.textContent=`COURSE ${COURSES[selectedCourse].id} · ${COURSES[selectedCourse].name}`;},
     inspectGlyph:char=>{const s=buildShape(char);return{char:s.char,width:s.bodyW,height:s.bodyH,area:s.area,
-      symmetry:s.symmetry,complexity:s.complexity,stats:{speed:s.speed,accel:s.accel,stability:s.stability,weight:s.weight},edge:s.contour.length};},
+      symmetry:s.symmetry,complexity:s.complexity,stats:{speed:s.speed,accel:s.accel,stability:s.stability,turbo:s.turbo},edge:s.contour.length};},
     intersects:()=>false,
     pathLength:()=>state.track?.length,
     key:savedKey
