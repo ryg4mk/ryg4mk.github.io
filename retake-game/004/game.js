@@ -46,7 +46,7 @@
     resultWait:0,toastLeft:0,toastText:'',wallHits:0,carHits:0,padHits:{speed:0,slow:0},playerRecord:false,newRecord:false};
   const shapeCache=new Map();
   const inkCache=new Map();
-  const savedKey='one-take-game-004-best-lap-v1';
+  const savedKey='retake-game-004-best-lap-v1';
 
   function glyphCount(value) {
     if (typeof Intl.Segmenter==='function') return [...new Intl.Segmenter('ja',{granularity:'grapheme'}).segment(value)].length;
@@ -119,11 +119,10 @@
     const stability=clamp(.49+.24*aspect+.16*(symmetry-.5)-.18*centerBias-.06*complexity,.21,.83);
     const speed=clamp(.54+.12*(.55-weight)+.09*aspect+.03*(symmetry-.5),.34,.76);
     const accel=clamp(.56+.25*(.54-weight)-.045*complexity,.35,.79);
-    // RETAKE: TURBO rewards lighter, cleaner shapes while remaining independent
-    // enough from SPEED to give different glyphs distinct racing personalities.
-    const turbo=clamp(.38+.34*(1-weight)+.18*(1-complexity)+.10*centerBias,.36,.88);
+    // RETAKE battle stat: dense, substantial glyphs survive spin attacks better.
+    const toughness=clamp(.30+.46*weight+.16*coverage+.10*(1-complexity),.30,.92);
     const shape={char,bitmap,alpha,w,h,bodyW,bodyH,area:count,areaNorm,
-      weight,stability,speed,accel,turbo,coverage,symmetry,complexity,centerBias,
+      weight,stability,speed,accel,toughness,coverage,symmetry,complexity,centerBias,
       contour:pick(allEdge,88),sample:pick(allFill,88),colors:new Map()};
     shapeCache.set(char,shape);
     return shape;
@@ -162,7 +161,7 @@
 
   function drawCar(c,g,atX,atY,angle,scale=1,preview=false){
     const s=c.shape;
-    g.save();g.translate(atX,atY);g.rotate(angle+Math.PI/2);g.scale(scale,scale);
+    g.save();g.translate(atX,atY);g.rotate(angle+Math.PI/2+(c.spinAngle||0));g.scale(scale,scale);
     const tw=clamp(s.bodyW*.22,3.6,6.5),th=clamp(s.bodyH*.37,6,10);
     const side=Math.max(1,s.bodyW*.34),fore=Math.max(1,s.bodyH*.42);
     g.shadowColor='#14163370';g.shadowBlur=preview?7:3;g.shadowOffsetY=preview?2:1;
@@ -173,7 +172,8 @@
     for(const x of [-side,side]){g.fillRect(x-tw*.26,-fore-th*.37,tw*.52,1.1);g.fillRect(x-tw*.26,fore+th*.37,tw*.52,1.1);}
     g.shadowColor='#1424439c';g.shadowBlur=preview?8:3;g.shadowOffsetY=1;
     // Bitmap itself is ink-only, so gaps inside 口, 山, 人 and other glyphs remain empty.
-    g.drawImage(tinted(s,c.color),-s.bodyW/2,-s.bodyH/2,s.bodyW,s.bodyH);
+    const body=c.damageCanvas||tinted(s,c.color);
+    g.drawImage(body,-s.bodyW/2,-s.bodyH/2,s.bodyW,s.bodyH);
     g.shadowColor='transparent';
     if(!preview && c.player){g.strokeStyle='#fff';g.lineWidth=1.1;g.beginPath();g.arc(0,0,Math.max(s.bodyW,s.bodyH)*.69,0,TAU);g.stroke();}
     g.restore();
@@ -199,7 +199,7 @@
     dom.stats.innerHTML='';
     if(!currentGlyph)return;
     const stats=[['SPEED',currentGlyph.speed],['ACCEL',currentGlyph.accel],
-      ['STABILITY',currentGlyph.stability],['TURBO',currentGlyph.turbo]];
+      ['STABILITY',currentGlyph.stability],['TOUGHNESS',currentGlyph.toughness]];
     for(const [name,n] of stats){const el=document.createElement('div');el.className='stat';
       const span=document.createElement('span');span.textContent=name;
       const bars=document.createElement('div');bars.className='stat-bars';
@@ -263,6 +263,46 @@
     const a=sample(track,d-18),b=sample(track,d+18);
     return Math.atan2(a.tx*b.ty-a.ty*b.tx,a.tx*b.tx+a.ty*b.ty)/36;
   }
+  function makeDamageCanvas(shape,color){
+    const c=makeCanvas(shape.w,shape.h),x=c.getContext('2d');
+    x.drawImage(tinted(shape,color),0,0);
+    return c;
+  }
+  function damageGlyph(car,amount,attacker){
+    if(car.finished||car.broken)return;
+    const s=car.shape;
+    const toughness=s.toughness;
+    const actual=amount*(1.18-toughness*.48);
+    car.integrity=Math.max(0,car.integrity-actual);
+
+    // Tear a real hole from the rendered glyph, biased toward the side of impact.
+    const dc=car.damageCanvas.getContext('2d');
+    dc.save();dc.globalCompositeOperation='destination-out';
+    let px=s.w*.5,py=s.h*.5;
+    if(attacker){
+      const dx=attacker.x-car.x,dy=attacker.y-car.y;
+      const lateral=dx*car.nx+dy*car.ny;
+      const forward=dx*car.tx+dy*car.ty;
+      px=clamp((.5+lateral/Math.max(1,s.bodyW)*.42)*s.w,s.w*.10,s.w*.90);
+      py=clamp((.5-forward/Math.max(1,s.bodyH)*.42)*s.h,s.h*.10,s.h*.90);
+    }
+    const radius=Math.max(5,Math.min(s.w,s.h)*(.10+actual*.0022));
+    dc.beginPath();dc.arc(px+rand(-4,4),py+rand(-4,4),radius,0,TAU);dc.fill();
+    dc.restore();
+
+    car.hitFlash=.18;
+    for(let i=0;i<7;i++) car.debris.push({
+      x:car.x+rand(-5,5),y:car.y+rand(-5,5),
+      vx:rand(-45,45),vy:rand(-45,45),life:rand(.28,.55),color:car.color
+    });
+
+    if(car.integrity<=0) breakCar(car);
+  }
+  function breakCar(c){
+    if(c.broken)return;
+    c.broken=true;c.finished=true;c.finishTime=null;c.finishStamp=state.elapsed;c.velocity=0;
+    if(c.player){playSound('wall');showToast('BREAK!',1.5);state.resultWait=0;dom.boost.disabled=true;}
+  }
   function spawnCar(char,color,player,gridIndex,cpuIndex){
     const shape=buildShape(char);
     const slot=[0,2,1,3][gridIndex]; // grid rows staggered, two lanes
@@ -271,8 +311,9 @@
     const c={char,color,player,index:cpuIndex,shape,progress,offset,velocity:0,
       lane:offset+rand(-2,2),seed:rand(0,TAU),skill:player?1:rand(.980,1.022),
       finishTime:null,finished:false,finishStamp:0,laps:0,lapTimes:[],lastLapTime:0,
-      boostTimer:0,boostLeft:3,cpuBoostMarks:player?[]:[rand(.18,.32),rand(1.05,1.28),rand(2.02,2.34)],
-      nextCpuBoost:0,padTimer:0,padKind:'',padEffect:'',coolWall:0,coolCar:0,trail:[],
+      spinTimer:0,spinCooldown:player?0:rand(.8,1.7),spinAngle:0,
+      integrity:100,broken:false,hitFlash:0,damageCanvas:makeDamageCanvas(shape,color),debris:[],
+      padTimer:0,padKind:'',padEffect:'',coolWall:0,coolCar:0,trail:[],
       wobble:rand(.85,1.25),x:0,y:0,tx:1,ty:0,nx:0,ny:1,angle:0};
     positionCar(c);return c;
   }
@@ -289,10 +330,10 @@
     // Rearrange grid positions each run, but player remains a recognizable entrant.
     const randomSlots=[0,1,2,3];for(let i=3;i>0;i--){const j=Math.floor(rand(0,i+1));[randomSlots[i],randomSlots[j]]=[randomSlots[j],randomSlots[i]];}
     state.cars=pool.map((v,i)=>spawnCar(v.char,v.color,v.player,randomSlots[i],i));
-    state.elapsed=0;state.countdown=3.84;state.boostLeft=3;state.resultWait=0;
+    state.elapsed=0;state.countdown=3.84;state.boostLeft=0;state.resultWait=0;
     state.playerRecord=false;state.newRecord=false;state.toastLeft=0;state.toastText='';
     state.wallHits=0;state.carHits=0;state.padHits={speed:0,slow:0};
-    dom.countdown.textContent='3';dom.boostCount.textContent='× 3';dom.boost.disabled=true;
+    dom.countdown.textContent='3';dom.boostCount.textContent='READY';dom.boost.disabled=true;
     dom.raceCourse.textContent=`COURSE ${COURSES[selectedCourse].id} · ${COURSES[selectedCourse].name}`;
     setPhase('countdown');updateHud();render();
   }
@@ -305,17 +346,18 @@
     }
     if(state.countdown<=0){state.elapsed=0;setPhase('racing');dom.boost.disabled=false;}
   }
-  function boost(){
-    if(state.phase!=='racing'||state.boostLeft<=0)return;
+  function spinAttack(){
+    if(state.phase!=='racing')return;
     const p=state.cars.find(c=>c.player);
-    if(!p||p.finished)return;
-    state.boostLeft--;p.boostLeft=state.boostLeft;
-    const turbo=p.shape.turbo;
-    p.boostTimer=1.05+turbo*1.15;
-    p.velocity+=10+turbo*20;
-    dom.boostCount.textContent=`× ${state.boostLeft}`;
-    dom.boost.classList.add('active');playSound('boost');showToast('BOOST! ⚡',.72);
+    if(!p||p.finished||p.spinCooldown>0||p.spinTimer>0)return;
+    p.spinTimer=.78;
+    p.spinCooldown=2.65;
+    // Attacking costs a little momentum, so timing still matters.
+    p.velocity*=.93;
+    dom.boostCount.textContent='SPIN!';
+    dom.boost.classList.add('active');playSound('boost');showToast('SPIN ATTACK! ↻',.62);
   }
+
   function showToast(s,seconds=.6){state.toastText=s;state.toastLeft=seconds;dom.toast.textContent=s;dom.toast.classList.add('show');}
   function padAt(track,d){
     const p=((d%track.length)+track.length)%track.length;
@@ -365,12 +407,40 @@
     }
     return pointsOfAInsideB(a,b)||pointsOfAInsideB(b,a);
   }
+  function carDistance(a,b){return Math.hypot(a.x-b.x,a.y-b.y);}
   function carContacts(){
-    // RETAKE: racers do not collide with each other.
-    // Cars may overlap visually and pass straight through one another so overtaking
-    // is determined by speed and racing line, never by physical blocking.
-    return;
+    const cars=state.cars;
+    for(let i=0;i<cars.length;i++)for(let j=i+1;j<cars.length;j++){
+      const a=cars[i],b=cars[j];
+      if(a.finished||b.finished)continue;
+      const dist=carDistance(a,b);
+      const normalHit=dist<24;
+      const spinHit=dist<34 && (a.spinTimer>0||b.spinTimer>0);
+      if(!normalHit&&!spinHit)continue;
+
+      state.carHits++;
+      // Light physical presence: push apart, but never create the old traffic-jam braking.
+      const delta=a.offset-b.offset;
+      const sign=delta===0?(a.index<b.index?-1:1):Math.sign(delta);
+      if(normalHit){
+        a.offset=clamp(a.offset+sign*1.25,-29,29);
+        b.offset=clamp(b.offset-sign*1.25,-29,29);
+      }
+
+      if(a.spinTimer>0 && a.coolCar<=0){
+        damageGlyph(b,22,a);
+        b.offset=clamp(b.offset-sign*5.2,-29,29);
+        a.coolCar=.34;
+      }
+      if(b.spinTimer>0 && b.coolCar<=0){
+        damageGlyph(a,22,b);
+        a.offset=clamp(a.offset+sign*5.2,-29,29);
+        b.coolCar=.34;
+      }
+      positionCar(a);positionCar(b);
+    }
   }
+
   function finishCar(c){
     c.finished=true;c.finishTime=state.elapsed;c.finishStamp=state.elapsed;
     if(c.player){playSound('finish');showToast('FINISH!',1.3);state.resultWait=0;dom.boost.disabled=true;}
@@ -378,36 +448,38 @@
   function updateCar(c,dt){
     if(c.finished)return;
     const st=c.shape;
-    c.boostTimer=Math.max(0,c.boostTimer-dt);
+    c.spinTimer=Math.max(0,c.spinTimer-dt);
+    c.spinCooldown=Math.max(0,c.spinCooldown-dt);
+    c.spinAngle+=c.spinTimer>0?dt*24:0;
+    c.hitFlash=Math.max(0,c.hitFlash-dt);
     c.padTimer=Math.max(0,c.padTimer-dt);
     c.coolWall=Math.max(0,c.coolWall-dt);
     c.coolCar=Math.max(0,c.coolCar-dt);
-    // RETAKE: no course speed pads. Speed changes come from glyph performance and BOOST.
-    if(!c.player && state.phase==='racing' && c.boostLeft>0 && c.nextCpuBoost<c.cpuBoostMarks.length){
-      const lapProgress=c.progress/Math.max(1,state.track.length);
-      if(lapProgress>=c.cpuBoostMarks[c.nextCpuBoost]){
-        const turbo=c.shape.turbo;
-        c.boostLeft--;
-        c.nextCpuBoost++;
-        c.boostTimer=1.05+turbo*1.15;
-        c.velocity+=10+turbo*20;
+    // CPU uses the same spin attack when another racer is close.
+    if(!c.player && state.phase==='racing' && c.spinCooldown<=0 && c.spinTimer<=0){
+      const near=state.cars.some(o=>o!==c&&!o.finished&&carDistance(c,o)<38);
+      if(near && Math.random()<dt*3.4){
+        c.spinTimer=.72;
+        c.spinCooldown=rand(2.45,3.25);
+        c.velocity*=.94;
       }
     }
     const curv=curveAt(state.track,c.progress);
     const stability=st.stability;
-    const boosted=c.boostTimer>0;
+    const spinning=c.spinTimer>0;
     // RETAKE: keep speed high even through corners. Stability now affects line control,
     // not a large automatic speed penalty.
     const maxSpeed=(154+(st.speed-.5)*30)*c.skill;
     let target=maxSpeed;
-    if(boosted)target*=1.25+st.turbo*.30;
+    // SPIN is an attack, not a turbo. It slightly costs speed instead of creating a free win.
+    if(spinning)target*=.94;
     const acceleration=112+(st.accel-.5)*58;
     c.velocity=clamp(c.velocity+(target>c.velocity?acceleration:-acceleration*1.8)*dt,0,Math.max(target,c.velocity));
     if(c.velocity>target)c.velocity=Math.max(target,c.velocity-acceleration*1.8*dt);
     const old=c.progress;
     c.progress+=Math.max(9,c.velocity)*dt;
     // Curvature, ink asymmetry and grip affect lane choice; never lock cars to a spline.
-    const lateralForce=curv*c.velocity*c.velocity*.058*(1.20-stability)*(boosted?1.34:1);
+    const lateralForce=curv*c.velocity*c.velocity*.058*(1.20-stability)*(spinning?1.12:1);
     const drift=clamp(lateralForce,-19,19);
     const wiggle=Math.sin(c.progress*.023+c.seed)*(1-stability)*3*c.wobble;
     const desired=clamp(c.lane+drift+wiggle,-29,29);
@@ -425,8 +497,10 @@
         if(lap===3){finishCar(c);break;}
       }
     }
-    if(boosted&&Math.random()<.9)c.trail.push({x:c.x-c.tx*12,y:c.y-c.ty*12,life:.38});
+    if(spinning&&Math.random()<.75)c.trail.push({x:c.x+rand(-10,10),y:c.y+rand(-10,10),life:.28});
     c.trail.forEach(p=>p.life-=dt);c.trail=c.trail.filter(p=>p.life>0).slice(-18);
+    c.debris.forEach(d=>{d.life-=dt;d.x+=d.vx*dt;d.y+=d.vy*dt;d.vx*=.96;d.vy*=.96;});
+    c.debris=c.debris.filter(d=>d.life>0).slice(-28);
   }
   function simulate(dt){
     if(state.phase==='countdown'){countdownStep(dt);return;}
@@ -445,8 +519,12 @@
     updateHud();
   }
   function racingOrder(){return [...state.cars].sort((a,b)=>{
-    if(a.finished&&b.finished)return a.finishTime-b.finishTime;
-    if(a.finished)return -1;if(b.finished)return 1;
+    if(a.finished&&b.finished){
+      if(a.broken!==b.broken)return a.broken?1:-1;
+      return (a.finishTime??Infinity)-(b.finishTime??Infinity);
+    }
+    if(a.finished&&!a.broken)return -1;if(b.finished&&!b.broken)return 1;
+    if(a.broken)return 1;if(b.broken)return -1;
     return b.progress-a.progress;
   });}
   function updateHud(){
@@ -463,16 +541,19 @@
       const ident=document.createElement('small');ident.textContent=car.player?'YOU':`CPU ${car.index}`;
       div.append(num,glyph,ident);dom.standings.appendChild(div);
     }
-    dom.boost.classList.toggle('active',player.boostTimer>0);
-    dom.boost.disabled=state.phase!=='racing'||state.boostLeft<=0;
+    dom.boost.classList.toggle('active',player.spinTimer>0);
+    dom.boost.disabled=state.phase!=='racing'||player.finished||player.spinCooldown>0||player.spinTimer>0;
+    if(player.spinTimer>0) dom.boostCount.textContent='SPIN!';
+    else if(player.spinCooldown>0) dom.boostCount.textContent=`${player.spinCooldown.toFixed(1)}s`;
+    else dom.boostCount.textContent='READY';
   }
   function showResult(){
     const player=state.cars.find(c=>c.player);
     const L=state.track.length;
-    const final=state.cars.map(c=>({...c,officialTime:c.finishTime??(state.elapsed+(3*L-c.progress)/Math.max(c.velocity,60))}));
+    const final=state.cars.map(c=>({...c,officialTime:c.broken?Infinity:(c.finishTime??(state.elapsed+(3*L-c.progress)/Math.max(c.velocity,60)))}));
     final.sort((a,b)=>a.officialTime-b.officialTime);
     const placement=final.findIndex(c=>c.player)+1;
-    const playerLap=Math.min(...player.lapTimes);
+    const playerLap=player.lapTimes.length?Math.min(...player.lapTimes):Infinity;
     const oldRecord=bestStored();const newRecord=Number.isFinite(playerLap)&&playerLap<oldRecord-.00001;
     if(newRecord)saveBest(playerLap);
     state.newRecord=newRecord;
@@ -490,13 +571,13 @@
       const ord=document.createElement('span');ord.className='ordinal';ord.textContent=ordinals[i];
       const gly=document.createElement('span');gly.className='car-glyph';gly.style.color=c.color;gly.textContent=c.char;
       const ident=document.createElement('span');ident.className='identity';ident.textContent=c.player?'PLAYER':`CPU ${c.index}`;
-      const time=document.createElement('span');time.className='result-time';time.textContent=(c.finishTime===null?'≈':'')+formatTime(c.officialTime);
+      const time=document.createElement('span');time.className='result-time';time.textContent=c.broken?'BREAK':((c.finishTime===null?'≈':'')+formatTime(c.officialTime));
       row.append(ord,gly,ident,time);list.appendChild(row);
     });
     $('resultPlace').textContent=ordinals[placement-1];
-    $('resultTime').textContent=formatTime(player.finishTime??state.elapsed);
+    $('resultTime').textContent=player.broken?'BREAK':formatTime(player.finishTime??state.elapsed);
     $('resultLap').textContent=formatTime(playerLap);
-    $('recordLabel').textContent=newRecord?'★ NEW RECORD! ★':placement===1?'★ YOU WIN! ★':'';
+    $('recordLabel').textContent=player.broken?'文字が壊れた！':newRecord?'★ NEW RECORD! ★':placement===1?'★ YOU WIN! ★':'';
     $('allTimeBest').textContent=`歴代 BEST LAP ${formatTime(bestStored())}`;
     setPhase('result');if(newRecord)playSound('record');
   }
@@ -574,17 +655,20 @@
       c.beginPath();c.arc(p.x,p.y,3.4,0,TAU);c.fill();
     }
     c.globalAlpha=1;
-    if(car.boostTimer>0){
-      const glow=c.createRadialGradient(car.x,car.y,3,car.x,car.y,32);
-      glow.addColorStop(0,'#98faff9a');glow.addColorStop(1,'#86d8ff00');
-      c.fillStyle=glow;c.beginPath();c.arc(car.x,car.y,32,0,TAU);c.fill();
-      c.strokeStyle='#cfffffc9';c.lineWidth=1.3;
+    if(car.spinTimer>0){
+      c.strokeStyle='#fff4a8d9';c.lineWidth=2;
       for(let i=0;i<3;i++){
-        const lateral=(i-1)*10,back=20+i*8;
-        c.beginPath();c.moveTo(car.x-car.tx*back+car.nx*lateral,car.y-car.ty*back+car.ny*lateral);
-        c.lineTo(car.x-car.tx*(back+15)+car.nx*lateral,car.y-car.ty*(back+15)+car.ny*lateral);c.stroke();
+        c.beginPath();c.arc(car.x,car.y,27+i*4,car.spinAngle+i*.7,car.spinAngle+i*.7+1.15);c.stroke();
       }
     }
+    if(car.hitFlash>0){
+      c.fillStyle=`rgba(255,255,255,${Math.min(.65,car.hitFlash*3)})`;
+      c.beginPath();c.arc(car.x,car.y,29,0,TAU);c.fill();
+    }
+    for(const d of car.debris){
+      c.globalAlpha=Math.max(0,d.life/.55);c.fillStyle=d.color;c.fillRect(d.x-2,d.y-2,4,4);
+    }
+    c.globalAlpha=1;
     // Tiny identification only for the human player; the glyph remains the body.
     if(car.player){
       c.fillStyle='#222d52bb';c.beginPath();c.arc(car.x+car.nx*24-car.tx*5,car.y+car.ny*24-car.ty*5,9,0,TAU);c.fill();
@@ -629,10 +713,10 @@
     dom.input.addEventListener('input',checkInput);
     dom.input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();dom.input.blur();dom.start.click();}});
     dom.start.addEventListener('click',startRace);
-    dom.boost.addEventListener('click',boost);
+    dom.boost.addEventListener('click',spinAttack);
     dom.race.addEventListener('pointerdown',e=>{
       if(e.target.closest('button'))return;
-      boost();
+      spinAttack();
     });
     $('retryButton').addEventListener('click',()=>{chooseEntrants();startRace();});
     $('changeButton').addEventListener('click',()=>{chooseEntrants();setPhase('title');});
@@ -662,8 +746,8 @@
     },
     setCourse:(i)=>{selectedCourse=clamp(i,0,COURSES.length-1);dom.hint.textContent=`COURSE ${COURSES[selectedCourse].id} · ${COURSES[selectedCourse].name}`;},
     inspectGlyph:char=>{const s=buildShape(char);return{char:s.char,width:s.bodyW,height:s.bodyH,area:s.area,
-      symmetry:s.symmetry,complexity:s.complexity,stats:{speed:s.speed,accel:s.accel,stability:s.stability,turbo:s.turbo},edge:s.contour.length};},
-    intersects:()=>false,
+      symmetry:s.symmetry,complexity:s.complexity,stats:{speed:s.speed,accel:s.accel,stability:s.stability,toughness:s.toughness},edge:s.contour.length};},
+    intersects:()=>{const c=state.cars;return c.length>1?sampleOverlap(c[0],c[1]):false;},
     pathLength:()=>state.track?.length,
     key:savedKey
   };
