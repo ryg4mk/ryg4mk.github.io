@@ -96,6 +96,66 @@
           </a>
         </div>
       </article>
+
+      <article class="otg-game-card" data-game-id="004">
+        <div class="otg-preview">
+          <div class="otg-preview-label">LIVE PREVIEW</div>
+          <iframe
+            src="./004/"
+            title="文字サーキットレース RETAKE #004 ゲーム画面プレビュー"
+            loading="lazy"
+            tabindex="-1"
+            aria-hidden="true"
+          ></iframe>
+        </div>
+
+        <div class="otg-game-content">
+          <p class="otg-number">RETAKE #004</p>
+          <h2>文字サーキットレース</h2>
+          <p class="otg-description">
+            好きな1文字がそのままマシンになる3周レースを、より速く、追い越しやすくブラッシュアップ。
+            BOOSTの爽快感を強め、減速要素を減らした高速版です。
+          </p>
+
+          <div class="rtg-points">
+            <strong>ONE TAKE版からの変更点</strong>
+            <p>通常速度を高速化 / BOOSTを大幅強化 / コーナー減速を撤廃 / SLOW床を撤廃 / 接触時の減速をなくし追い越し補助を追加 / 対車両の当たり判定を縮小</p>
+          </div>
+
+          <dl class="otg-facts">
+            <div>
+              <dt>ORIGINAL</dt>
+              <dd>ONE TAKE #004</dd>
+            </div>
+            <div>
+              <dt>BOOST</dt>
+              <dd>3 TIMES</dd>
+            </div>
+          </dl>
+
+          <div class="otg-social" aria-label="このゲームの人気">
+            <div class="otg-stat" title="閲覧数">
+              <span class="otg-social-icon" aria-hidden="true">👁</span>
+              <span data-view-count>—</span>
+              <span class="otg-social-label">views</span>
+            </div>
+            <button class="otg-like-button" data-like-button type="button" aria-pressed="false" aria-label="このゲームにいいね">
+              <span class="otg-heart" aria-hidden="true">♥</span>
+              <span data-like-count>—</span>
+            </button>
+          </div>
+
+          <a class="otg-play-button" href="./004/">
+            PLAY RETAKE
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <a class="rtg-original-link" href="https://ryg4mk.github.io/moji-circuit-race/">
+            ONE TAKE版を見る
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </article>
     </section>
 
     <section class="otg-about" aria-labelledby="about-title">
@@ -115,15 +175,16 @@
 
   <script>
     (() => {
-      const frame = document.querySelector('.otg-preview iframe');
-      if (!frame) return;
-      const tryStart = () => {
-        try {
-          const button = frame.contentDocument?.querySelector('#action');
-          if (button) button.click();
-        } catch (_) {}
-      };
-      frame.addEventListener('load', () => setTimeout(tryStart, 250), { once: true });
+      const frames = [...document.querySelectorAll('.otg-preview iframe')];
+      frames.forEach(frame => {
+        const tryStart = () => {
+          try {
+            const button = frame.contentDocument?.querySelector('#action, #startButton, #start-button, #start');
+            if (button) button.click();
+          } catch (_) {}
+        };
+        frame.addEventListener('load', () => setTimeout(tryStart, 250), { once: true });
+      });
     })();
   </script>
 </body>
