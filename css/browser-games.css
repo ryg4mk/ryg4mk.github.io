@@ -272,3 +272,64 @@
     padding-inline:18px;
   }
 }
+
+.browser-game-social{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin:0 0 24px;
+}
+
+.browser-game-stat,
+.browser-game-like-button{
+  display:inline-flex;
+  gap:7px;
+  align-items:center;
+  min-height:42px;
+  padding:8px 13px;
+  color:var(--ink);
+  background:var(--white);
+  border:2px solid rgba(63,56,46,.28);
+  border-radius:999px;
+  font-size:.9rem;
+  font-weight:900;
+}
+
+.browser-game-stat{cursor:default}
+
+.browser-game-social-icon{font-size:.95rem}
+
+.browser-game-social-label{
+  color:var(--muted);
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.03em;
+}
+
+.browser-game-like-button{
+  cursor:pointer;
+  font:inherit;
+  transition:transform 140ms ease,background 140ms ease,border-color 140ms ease;
+}
+
+.browser-game-like-button:hover:not(:disabled){
+  transform:translateY(-1px);
+  background:#fff1ef;
+  border-color:#d37a70;
+}
+
+.browser-game-like-button:disabled{
+  cursor:wait;
+  opacity:.7;
+}
+
+.browser-game-like-button.is-liked{
+  color:#b83b45;
+  background:#ffe6e8;
+  border-color:#c85b63;
+}
+
+.browser-game-heart{
+  font-size:1.05rem;
+  line-height:1;
+}
