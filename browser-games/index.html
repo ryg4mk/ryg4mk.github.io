@@ -8,6 +8,7 @@
   <title>ブラウザゲーム | ロオの工作室</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/browser-games.css">
+  <script src="./social.js" defer></script>
 </head>
 <body class="browser-games-page">
   <header class="browser-games-header">
@@ -34,7 +35,7 @@
         <h2 id="games-title">公開中のゲーム</h2>
       </div>
 
-      <article class="browser-game-card">
+      <article class="browser-game-card" data-game-id="001">
         <div class="browser-game-preview">
           <div class="browser-game-preview-label">LIVE PREVIEW</div>
           <iframe
@@ -68,6 +69,18 @@
               <dd>タップ / ズーム</dd>
             </div>
           </dl>
+
+          <div class="browser-game-social" aria-label="このゲームの人気">
+            <div class="browser-game-stat" title="閲覧数">
+              <span class="browser-game-social-icon" aria-hidden="true">👁</span>
+              <span data-view-count>—</span>
+              <span class="browser-game-social-label">views</span>
+            </div>
+            <button class="browser-game-like-button" data-like-button type="button" aria-pressed="false" aria-label="このゲームにいいね">
+              <span class="browser-game-heart" aria-hidden="true">♥</span>
+              <span data-like-count>—</span>
+            </button>
+          </div>
 
           <a class="browser-game-play-button" href="https://ryg4mk.github.io/four-leaf-clover-game/">
             PLAY
