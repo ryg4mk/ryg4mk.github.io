@@ -35,6 +35,7 @@ async function requestCounter(action, key) {
       credentials: 'omit',
       referrerPolicy: 'no-referrer',
       cache: 'no-store',
+      keepalive: action === 'hit',
       signal: controller.signal
     });
 
@@ -101,8 +102,20 @@ async function loadViews(cards) {
   }));
 }
 
+
+function trackPlayClicks(card) {
+  const link = card.querySelector('.browser-game-play-button');
+  const gameId = card.dataset.gameId;
+  if (!link || !gameId) return;
+  link.addEventListener('click', () => {
+    // Count deliberate PLAY clicks as views, not background iframe previews.
+    if (!isPublished) return;
+    void requestCounter('hit', counterKey(gameId, 'views'));
+  });
+}
+
 const cards = [...document.querySelectorAll('.browser-game-card[data-game-id]')];
-cards.forEach((card) => void loadLike(card));
+cards.forEach((card) => { void loadLike(card); trackPlayClicks(card); });
 void loadViews(cards);
 
 window.addEventListener('pageshow', () => {
